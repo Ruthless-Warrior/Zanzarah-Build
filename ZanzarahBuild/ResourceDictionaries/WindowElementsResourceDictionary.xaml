@@ -1,0 +1,349 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:ZanzarahBuild"
+                    xmlns:custom="clr-namespace:ZanzarahBuild.Views.CustomControls">
+
+
+    <LinearGradientBrush x:Key="Window.Border.Brush1"
+                         EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="#DAE2D0" Offset="0"/>
+        <GradientStop Color="#5A685B" Offset="0.5"/>
+        <GradientStop Color="#D5E2D0" Offset="1"/>
+    </LinearGradientBrush>
+
+
+    <LinearGradientBrush x:Key="Window.Border.Brush2"
+                         EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="#1E251F" Offset="0"/>
+        <GradientStop Color="#C2D5C4" Offset="0.5"/>
+        <GradientStop Color="#1F201F" Offset="1"/>
+    </LinearGradientBrush>
+
+
+    <LinearGradientBrush x:Key="Window.AdditionalBorder.Brush"
+                         EndPoint="1,0.5" StartPoint="0,0.5">
+        <GradientStop Color="#423F39" Offset="0"/>
+        <GradientStop Color="#B1ACA4" Offset="0.5"/>
+        <GradientStop Color="#423F39" Offset="1"/>
+    </LinearGradientBrush>
+
+
+    <SolidColorBrush x:Key="Window.Background.Brush" Color="#38385C"/>
+
+
+    <SolidColorBrush x:Key="Button.Border.GrayBrush" Color="#1F2620"/>
+    <SolidColorBrush x:Key="Button.Border.BlackBrush" Color="Black"/>
+
+
+    <LinearGradientBrush x:Key="Button.Border.EnabledBrush1"
+                         EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="#D6C7A3" Offset="0"/>
+        <GradientStop Color="#D6E2D6" Offset="1"/>
+    </LinearGradientBrush>
+
+
+    <LinearGradientBrush x:Key="Button.Border.DisabledBrush1"
+                         EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="#413C31" Offset="0"/>
+        <GradientStop Color="#4C4739" Offset="1"/>
+    </LinearGradientBrush>
+
+
+    <SolidColorBrush x:Key="Button.Border.EnabledBrush2" Color="Black"/>
+
+
+    <LinearGradientBrush x:Key="Button.Border.DisabledBrush2"
+                         EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="#0A0906" Offset="0"/>
+        <GradientStop Color="#2C2A1E" Offset="1"/>
+    </LinearGradientBrush>
+
+
+
+
+    <RadialGradientBrush x:Key="Button.Background.FocusedBrush1"
+                         GradientOrigin="0,0" Center="0,0" RadiusX="1.03" RadiusY="1.03">
+        <GradientStop Color="#CF7FE9" Offset="0"/>
+        <GradientStop Color="Black" Offset="1"/>
+    </RadialGradientBrush>
+
+
+    <RadialGradientBrush x:Key="Button.Background.FocusedBrush2"
+                         GradientOrigin="0,0" Center="0,0" RadiusX="1.03" RadiusY="1.03">
+        <GradientStop Color="#0FC3BE" Offset="0"/>
+        <GradientStop Color="Black" Offset="1"/>
+    </RadialGradientBrush>
+
+
+    <RadialGradientBrush x:Key="Button.Background.PressedBrush1"
+                         GradientOrigin="0,0" Center="0,0" RadiusX="1.03" RadiusY="1.03">
+        <GradientStop Color="#FF4444" Offset="0"/>
+        <GradientStop Color="Black" Offset="1"/>
+    </RadialGradientBrush>
+
+
+    <RadialGradientBrush x:Key="Button.Background.PressedBrush2"
+                         GradientOrigin="0,0" Center="0,0" RadiusX="1.03" RadiusY="1.03">
+        <GradientStop Color="#FDF65C" Offset="0"/>
+        <GradientStop Color="Black" Offset="1"/>
+    </RadialGradientBrush>
+
+
+    <RadialGradientBrush x:Key="Button.Background.UnfocusedBrush"
+                         GradientOrigin="0,0" Center="0,0" RadiusX="1.03" RadiusY="1.03">
+        <GradientStop Color="#857652" Offset="0"/>
+        <GradientStop Color="Black" Offset="1"/>
+    </RadialGradientBrush>
+
+
+
+
+    <SolidColorBrush x:Key="FocusedColor11" Color="#C59BD6"/>
+    <SolidColorBrush x:Key="FocusedColor12" Color="#0D080F"/>
+
+
+    <SolidColorBrush x:Key="FocusedColor21" Color="#7CE0DD"/>
+    <SolidColorBrush x:Key="FocusedColor22" Color="#011717"/>
+
+
+    <SolidColorBrush x:Key="PressedColor11" Color="#FDB5B5"/>
+    <SolidColorBrush x:Key="PressedColor12" Color="#0F0808"/>
+
+
+    <SolidColorBrush x:Key="PressedColor21" Color="#E6E3AA"/>
+    <SolidColorBrush x:Key="PressedColor22" Color="#171501"/>
+
+
+    <SolidColorBrush x:Key="UnfocusedColor1" Color="#B8B8AE"/>
+    <SolidColorBrush x:Key="UnfocusedColor2" Color="#1F1E1B"/>
+
+
+    <!-- Button Shape -->
+    <Style x:Key="ShapeStyle" TargetType="{x:Type Shape}">
+        <Setter Property="StrokeThickness" Value="1"/>
+        <Setter Property="Stroke" Value="{StaticResource UnfocusedColor1}"/>
+        <Setter Property="Fill" Value="{StaticResource UnfocusedColor2}"/>
+        <Style.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=IsMouseOver}" Value="True"/>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Tag}" Value="Pink"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Stroke" Value="{StaticResource FocusedColor11}"/>
+                    <Setter Property="Fill" Value="{StaticResource FocusedColor12}"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=IsMouseOver}" Value="True"/>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Tag}" Value="Blue"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Stroke" Value="{StaticResource FocusedColor21}"/>
+                    <Setter Property="Fill" Value="{StaticResource FocusedColor22}"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=IsPressed}" Value="True"/>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Tag}" Value="Pink"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Stroke" Value="{StaticResource PressedColor11}"/>
+                    <Setter Property="Fill" Value="{StaticResource PressedColor12}"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=IsPressed}" Value="True"/>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Tag}" Value="Blue"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Stroke" Value="{StaticResource PressedColor21}"/>
+                    <Setter Property="Fill" Value="{StaticResource PressedColor22}"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=IsEnabled}" Value="False">
+                <Setter Property="Stroke" Value="{StaticResource UnfocusedColor1}"/>
+                <Setter Property="Fill" Value="{StaticResource UnfocusedColor2}"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+    
+    
+    <!-- Button Background -->
+    <DataTemplate x:Key="ButtonBackgroundDataTemplate">
+        <Grid Width="40" Height="40" Background="Transparent">
+            <Border BorderBrush="{StaticResource Button.Border.GrayBrush}" BorderThickness="1">
+                <Border BorderBrush="{StaticResource Button.Border.BlackBrush}" BorderThickness="1">
+                    <Border BorderThickness="1">
+                        <Border BorderThickness="1">
+                            <Border.Style>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="BorderBrush" Value="{StaticResource Button.Border.EnabledBrush2}"/>
+                                    <Setter Property="Background" Value="{StaticResource Button.Background.UnfocusedBrush}"/>
+                                    <Style.Triggers>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=IsMouseOver}" Value="True"/>
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Tag}" Value="Pink"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter Property="BorderBrush" Value="{StaticResource Button.Border.EnabledBrush2}"/>
+                                                <Setter Property="Background" Value="{StaticResource Button.Background.FocusedBrush1}"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=IsMouseOver}" Value="True"/>
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Tag}" Value="Blue"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter Property="BorderBrush" Value="{StaticResource Button.Border.EnabledBrush2}"/>
+                                                <Setter Property="Background" Value="{StaticResource Button.Background.FocusedBrush2}"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=IsPressed}" Value="True"/>
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Tag}" Value="Pink"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter Property="BorderBrush" Value="{StaticResource Button.Border.EnabledBrush2}"/>
+                                                <Setter Property="Background" Value="{StaticResource Button.Background.PressedBrush1}"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+                                        <MultiDataTrigger>
+                                            <MultiDataTrigger.Conditions>
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=IsPressed}" Value="True"/>
+                                                <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=Tag}" Value="Blue"/>
+                                            </MultiDataTrigger.Conditions>
+                                            <MultiDataTrigger.Setters>
+                                                <Setter Property="BorderBrush" Value="{StaticResource Button.Border.EnabledBrush2}"/>
+                                                <Setter Property="Background" Value="{StaticResource Button.Background.PressedBrush2}"/>
+                                            </MultiDataTrigger.Setters>
+                                        </MultiDataTrigger>
+                                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=IsEnabled}" Value="False">
+                                            <Setter Property="BorderBrush" Value="{StaticResource Button.Border.DisabledBrush2}"/>
+                                        </DataTrigger>
+                                        
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                        </Border>
+                        <Border.Style>
+                            <Style TargetType="{x:Type Border}">
+                                <Setter Property="BorderBrush" Value="{StaticResource Button.Border.DisabledBrush1}"/>
+                                <Style.Triggers>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=IsEnabled}" Value="True"/>
+                                            <Condition Binding="{Binding RelativeSource={RelativeSource AncestorType={x:Type Button}}, Path=IsMouseOver}" Value="True"/>
+                                        </MultiDataTrigger.Conditions>
+                                        <MultiDataTrigger.Setters>
+                                            <Setter Property="BorderBrush" Value="{StaticResource Button.Border.EnabledBrush1}"/>
+                                        </MultiDataTrigger.Setters>
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                    </Border>
+                </Border>
+            </Border>
+        </Grid>
+    </DataTemplate>
+
+
+    <Style x:Key="MinimizeButtonStyle" TargetType="{x:Type custom:CustomButton}">
+        <Setter Property="Tag" Value="Blue"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid Width="40" Height="40" Background="Transparent">
+                        <ContentControl ContentTemplate="{StaticResource ButtonBackgroundDataTemplate}"/>
+                        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent">
+                            <Polygon  Points="0,0,  26,0,  26,6,  0,6"
+                                      Style="{StaticResource ShapeStyle}"/>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="MaximizeButtonStyle" TargetType="{x:Type custom:CustomButton}">
+        <Setter Property="Tag" Value="Blue"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid Width="40" Height="40" Background="Transparent">
+                        <ContentControl ContentTemplate="{StaticResource ButtonBackgroundDataTemplate}"/>
+                        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent">
+                            <Path Style="{StaticResource ShapeStyle}">
+                                <Path.Data>
+                                    <CombinedGeometry GeometryCombineMode="Exclude">
+                                        <CombinedGeometry.Geometry1>
+                                            <RectangleGeometry Rect="0,0,26,26" />
+                                        </CombinedGeometry.Geometry1>
+                                        <CombinedGeometry.Geometry2>
+                                            <RectangleGeometry Rect="4,8,18,14" />
+                                        </CombinedGeometry.Geometry2>
+                                    </CombinedGeometry>
+                                </Path.Data>
+                            </Path>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=WindowState}" Value="Maximized">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate>
+                            <Grid Width="40" Height="40" Background="Transparent">
+                                <ContentControl ContentTemplate="{StaticResource ButtonBackgroundDataTemplate}"/>
+                                <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent">
+                                    <Polygon Points="4,0,  26,0,  26,22,  20,22,  20,6,  4,6"
+                                             Style="{StaticResource ShapeStyle}"/>
+                                    <Path Style="{StaticResource ShapeStyle}">
+                                        <Path.Data>
+                                            <CombinedGeometry GeometryCombineMode="Exclude">
+                                                <CombinedGeometry.Geometry1>
+                                                    <RectangleGeometry Rect="0,4,22,22" />
+                                                </CombinedGeometry.Geometry1>
+                                                <CombinedGeometry.Geometry2>
+                                                    <RectangleGeometry Rect="4,12,14,10" />
+                                                </CombinedGeometry.Geometry2>
+                                            </CombinedGeometry>
+                                        </Path.Data>
+                                    </Path>
+                                </Grid>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+
+    <Style x:Key="CloseButtonStyle" TargetType="{x:Type custom:CustomButton}">
+        <Setter Property="Tag" Value="Pink"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid Width="40" Height="40" Background="Transparent">
+                        <ContentControl ContentTemplate="{StaticResource ButtonBackgroundDataTemplate}"/>
+                        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent">
+                            <Polygon  Points="0,6,  6,0,  12,6,  18,0,  24,6,  18,12,  24,18,  18,24,  12,18,  6,24,  0,18,  6,12"
+                                      Style="{StaticResource ShapeStyle}"/>
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

@@ -1,0 +1,334 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:ZanzarahBuild">
+
+
+    <LinearGradientBrush x:Key="ScrollBar.Background.Brush.Vertical" EndPoint="0.5,1" StartPoint="0.5,0">
+        <GradientStop Color="White"/>
+        <GradientStop Color="White" Offset="0.08"/>
+        <GradientStop Color="#D6C7A3" Offset="0.32"/>
+        <GradientStop Color="#D6C7A3" Offset="0.63"/>
+        <GradientStop Color="#44473C" Offset="0.95"/>
+        <GradientStop Color="#44473C" Offset="1"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="ScrollBar.Background.Brush.Horizontal" EndPoint="0,0.5" StartPoint="1,0.5">
+        <GradientStop Color="White"/>
+        <GradientStop Color="White" Offset="0.08"/>
+        <GradientStop Color="#D6C7A3" Offset="0.32"/>
+        <GradientStop Color="#D6C7A3" Offset="0.63"/>
+        <GradientStop Color="#44473C" Offset="0.95"/>
+        <GradientStop Color="#44473C" Offset="1"/>
+    </LinearGradientBrush>
+
+    <SolidColorBrush x:Key="Selection.Brush" Color="#38385C"/>
+
+
+    <ControlTemplate x:Key="Arrow.Up.Default">
+        <Grid Width="25" Height="24" ClipToBounds="True" SnapsToDevicePixels="True">
+            <Image Source="\ZanzarahBuild;component\Resources\BitmapSources\BTN001T.png" Width="1470" Height="35" Margin="-593, -5, 0,0"/>
+        </Grid>
+    </ControlTemplate>
+    <ControlTemplate x:Key="Arrow.Up.Highlighted">
+        <Grid Width="25" Height="24" ClipToBounds="True" SnapsToDevicePixels="True">
+            <Image Source="\ZanzarahBuild;component\Resources\BitmapSources\BTN001T.png" Width="1470" Height="35" Margin="-630, -5, 0,0"/>
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="Arrow.Down.Default">
+        <Grid Width="25" Height="24" ClipToBounds="True" SnapsToDevicePixels="True">
+            <Image Source="\ZanzarahBuild;component\Resources\BitmapSources\BTN001T.png" Width="1470" Height="35" Margin="-667, -7, 0,0"/>
+        </Grid>
+    </ControlTemplate>
+    <ControlTemplate x:Key="Arrow.Down.Highlighted">
+        <Grid Width="25" Height="24" ClipToBounds="True" SnapsToDevicePixels="True">
+            <Image Source="\ZanzarahBuild;component\Resources\BitmapSources\BTN001T.png" Width="1470" Height="35" Margin="-704, -7, 0,0"/>
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="Arrow.Right.Default">
+        <Grid Width="24" Height="25" ClipToBounds="True" SnapsToDevicePixels="True">
+            <Image Source="\ZanzarahBuild;component\Resources\BitmapSources\BTN001T.png" Width="1470" Height="35" Margin="-869, -5, 0,0"/>
+        </Grid>
+    </ControlTemplate>
+    <ControlTemplate x:Key="Arrow.Right.Highlighted">
+        <Grid Width="24" Height="25" ClipToBounds="True" SnapsToDevicePixels="True">
+            <Image Source="\ZanzarahBuild;component\Resources\BitmapSources\BTN001T.png" Width="1470" Height="35" Margin="-906, -5, 0,0"/>
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="Arrow.Left.Default">
+        <Grid Width="24" Height="25" ClipToBounds="True" SnapsToDevicePixels="True">
+            <Image Source="\ZanzarahBuild;component\Resources\BitmapSources\BTN001T.png" Width="1470" Height="35" Margin="-941, -5, 0,0"/>
+        </Grid>
+    </ControlTemplate>
+    <ControlTemplate x:Key="Arrow.Left.Highlighted">
+        <Grid Width="24" Height="25" ClipToBounds="True" SnapsToDevicePixels="True">
+            <Image Source="\ZanzarahBuild;component\Resources\BitmapSources\BTN001T.png" Width="1470" Height="35" Margin="-978, -5, 0,0"/>
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="Thumb.Default">
+        <Grid Width="21" Height="21" ClipToBounds="True" SnapsToDevicePixels="True">
+            <Image Source="\ZanzarahBuild;component\Resources\BitmapSources\BTN001T.png" Width="1470" Height="35" Margin="-525, -7, 0,0"/>
+        </Grid>
+    </ControlTemplate>
+    <ControlTemplate x:Key="Thumb.Highlighted">
+        <Grid Width="21" Height="21" ClipToBounds="True" SnapsToDevicePixels="True">
+            <Image Source="\ZanzarahBuild;component\Resources\BitmapSources\BTN001T.png" Width="1470" Height="35" Margin="-560, -7, 0,0"/>
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="SmallThumb.Default">
+        <Grid Width="18" Height="18" ClipToBounds="True" SnapsToDevicePixels="True">
+            <Image Source="\ZanzarahBuild;component\Resources\BitmapSources\SLD000T.png" Width="317" Height="23" Margin="-278, -3, 0,0"/>
+        </Grid>
+    </ControlTemplate>
+    <ControlTemplate x:Key="SmallThumb.Highlighted">
+        <Grid Width="18" Height="18" ClipToBounds="True" SnapsToDevicePixels="True">
+            <Image Source="\ZanzarahBuild;component\Resources\BitmapSources\SLD000T.png" Width="317" Height="23" Margin="-298, -3, 0,0"/>
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="RadioButton.Unchecked.Default">
+        <Grid Width="27" Height="27" ClipToBounds="True" SnapsToDevicePixels="True">
+            <Image Source="\ZanzarahBuild;component\Resources\BitmapSources\BTN000T.png" Width="2554" Height="41" Margin="-1712, -7, 0,0"/>
+        </Grid>
+    </ControlTemplate>
+    <ControlTemplate x:Key="RadioButton.Unchecked.Highlighted">
+        <Grid Width="27" Height="27" ClipToBounds="True" SnapsToDevicePixels="True">
+            <Image Source="\ZanzarahBuild;component\Resources\BitmapSources\BTN000T.png" Width="2554" Height="41" Margin="-1749, -7, 0,0"/>
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="RadioButton.Checked.Default">
+        <Grid Width="27" Height="27" ClipToBounds="True" SnapsToDevicePixels="True">
+            <Image Source="\ZanzarahBuild;component\Resources\BitmapSources\BTN000T.png" Width="2554" Height="41" Margin="-1786, -7, 0,0"/>
+        </Grid>
+    </ControlTemplate>
+    <ControlTemplate x:Key="RadioButton.Checked.Highlighted">
+        <Grid Width="27" Height="27" ClipToBounds="True" SnapsToDevicePixels="True">
+            <Image Source="\ZanzarahBuild;component\Resources\BitmapSources\BTN000T.png" Width="2554" Height="41" Margin="-1823, -7, 0,0"/>
+        </Grid>
+    </ControlTemplate>
+
+
+
+
+    <ControlTemplate x:Key="Box.Background">
+        <Border BorderBrush="Black" BorderThickness="1">
+            <DockPanel>
+                <Grid DockPanel.Dock="Top" Height="1">
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                            <GradientStop Color="#D6C7A3" Offset="0"/>
+                            <GradientStop Color="#D6C7A3" Offset="0.8"/>
+                            <GradientStop Color="White" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                </Grid>
+                <Grid DockPanel.Dock="Bottom" Height="1">
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                            <GradientStop Color="#F2F3F4" Offset="0"/>
+                            <GradientStop Color="#35332E" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                </Grid>
+                <Grid DockPanel.Dock="Left" Width="1">
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#D6C7A3" Offset="0"/>
+                            <GradientStop Color="#F2F3F4" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                </Grid>
+                <Grid DockPanel.Dock="Right" Width="1">
+                    <Grid.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="White" Offset="0"/>
+                            <GradientStop Color="#D6C7A3" Offset="0.1818"/>
+                            <GradientStop Color="#D6C7A3" Offset="0.2727"/>
+                            <GradientStop Color="#8A816A" Offset="0.6363"/>
+                            <GradientStop Color="#35332E" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Grid.Background>
+                </Grid>
+                <Grid Background="#1A1A1A"/>
+            </DockPanel>
+        </Border>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ControlBackground.Default">
+        <Border BorderBrush="Black" BorderThickness="1">
+            <Border BorderThickness="1">
+                <Border.BorderBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FF6D6553" Offset="0"/>
+                        <GradientStop Color="#FFCFC09E" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+                <Border BorderBrush="Black" BorderThickness="1">
+                    <Border BorderBrush="#FF393428" BorderThickness="1">
+                        <Grid>
+                            <Border BorderBrush="#FF27241B" BorderThickness="1">
+                                <Border BorderBrush="#FF191711" BorderThickness="1">
+                                    <Border BorderBrush="#FF0E0D0A" BorderThickness="1">
+                                        <Border BorderBrush="#FF070605" BorderThickness="1">
+                                            <Border BorderBrush="#FF030302" BorderThickness="1" Background="Black"/>
+                                        </Border>
+                                    </Border>
+                                </Border>
+                            </Border>
+                            <Grid Background="#1A393428"
+                                  HorizontalAlignment="Left" Width="5"
+                                  VerticalAlignment="Top" Height="5"/>
+                            <Grid Background="#1A393428"
+                                  HorizontalAlignment="Right" Width="5"
+                                  VerticalAlignment="Top" Height="5"/>
+                            <Grid Background="#1A393428"
+                                  HorizontalAlignment="Left" Width="5"
+                                  VerticalAlignment="Bottom" Height="5"/>
+                            <Grid Background="#1A393428"
+                                  HorizontalAlignment="Right" Width="5"
+                                  VerticalAlignment="Bottom" Height="5"/>
+                        </Grid>
+                    </Border>
+                </Border>
+            </Border>
+        </Border>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ControlBackground.Blue">
+        <Border BorderBrush="Black" BorderThickness="1">
+            <Border BorderThickness="1">
+                <Border.BorderBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFD7EDEC" Offset="0"/>
+                        <GradientStop Color="#FF324848" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+                <Border BorderBrush="Black" BorderThickness="1">
+                    <Border BorderBrush="#FF10E1DA" BorderThickness="1">
+                        <Grid>
+                            <Border BorderBrush="#FF215B58" BorderThickness="1">
+                                <Border BorderBrush="#FF173E3C" BorderThickness="1">
+                                    <Border BorderBrush="#FF0E2726" BorderThickness="1">
+                                        <Border BorderBrush="#FF081616" BorderThickness="1">
+                                            <Border BorderBrush="#FF040B0A" BorderThickness="1" Background="Black"/>
+                                        </Border>
+                                    </Border>
+                                </Border>
+                            </Border>
+                            <Grid Background="#0910E1DA"
+                                  HorizontalAlignment="Left" Width="5"
+                                  VerticalAlignment="Top" Height="5"/>
+                            <Grid Background="#0910E1DA"
+                                  HorizontalAlignment="Right" Width="5"
+                                  VerticalAlignment="Top" Height="5"/>
+                            <Grid Background="#0910E1DA"
+                                  HorizontalAlignment="Left" Width="5"
+                                  VerticalAlignment="Bottom" Height="5"/>
+                            <Grid Background="#0910E1DA"
+                                  HorizontalAlignment="Right" Width="5"
+                                  VerticalAlignment="Bottom" Height="5"/>
+                        </Grid>
+                    </Border>
+                </Border>
+            </Border>
+        </Border>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ControlBackground.Rose">
+        <Border BorderBrush="Black" BorderThickness="1">
+            <Border BorderThickness="1">
+                <Border.BorderBrush>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#FFD7EDEC" Offset="0"/>
+                        <GradientStop Color="#FF324848" Offset="1"/>
+                    </LinearGradientBrush>
+                </Border.BorderBrush>
+                <Border BorderBrush="Black" BorderThickness="1">
+                    <Grid>
+                        <Border BorderBrush="#FFA77AB2" BorderThickness="1">
+                            <Border BorderBrush="#FF3C2C40" BorderThickness="1">
+                                <Border BorderBrush="#FF261C28" BorderThickness="1">
+                                    <Border BorderBrush="#FF18121A" BorderThickness="1">
+                                        <Border BorderBrush="#FF0F0B11" BorderThickness="1">
+                                            <Border BorderBrush="#FF080608" BorderThickness="1" Background="Black"/>
+                                        </Border>
+                                    </Border>
+                                </Border>
+                            </Border>
+                        </Border>
+                        <Grid Background="#22A77AB2"
+                              HorizontalAlignment="Left" Width="6"
+                              VerticalAlignment="Top" Height="6"/>
+                        <Grid Background="#22A77AB2"
+                              HorizontalAlignment="Right" Width="6"
+                              VerticalAlignment="Top" Height="6"/>
+                        <Grid Background="#22A77AB2"
+                              HorizontalAlignment="Left" Width="6"
+                              VerticalAlignment="Bottom" Height="6"/>
+                        <Grid Background="#22A77AB2"
+                              HorizontalAlignment="Right" Width="6"
+                              VerticalAlignment="Bottom" Height="6"/>
+                    </Grid>
+                </Border>
+            </Border>
+        </Border>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="Selection.Angles">
+        <Grid>
+            <Image HorizontalAlignment="Left" VerticalAlignment="Top" Width="13" Height="13">
+                <Image.Source>
+                    <CroppedBitmap Source="\ZanzarahBuild;component\Resources\BitmapSources\DND000T.png" SourceRect="0,0,13,13"/>
+                </Image.Source>
+            </Image>
+            <Image HorizontalAlignment="Right" VerticalAlignment="Top" Width="13" Height="13">
+                <Image.Source>
+                    <CroppedBitmap Source="\ZanzarahBuild;component\Resources\BitmapSources\DND000T.png" SourceRect="31,0,13,13"/>
+                </Image.Source>
+            </Image>
+            <Image HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="13" Height="13">
+                <Image.Source>
+                    <CroppedBitmap Source="\ZanzarahBuild;component\Resources\BitmapSources\DND000T.png" SourceRect="0,31,13,13"/>
+                </Image.Source>
+            </Image>
+            <Image HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="13" Height="13">
+                <Image.Source>
+                    <CroppedBitmap Source="\ZanzarahBuild;component\Resources\BitmapSources\DND000T.png" SourceRect="31,31,13,13"/>
+                </Image.Source>
+            </Image>
+        </Grid>
+    </ControlTemplate>
+
+
+
+
+    <Style x:Key="RepeatButtonTransparent" TargetType="{x:Type RepeatButton}">
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Focusable" Value="false"/>
+        <Setter Property="IsTabStop" Value="false"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Rectangle Fill="{TemplateBinding Background}" Height="{TemplateBinding Height}" Width="{TemplateBinding Width}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="Selection.Style" TargetType="ContentControl">
+        <Setter Property="Visibility" Value="Collapsed"/>
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding IsSelected}" Value="true">
+                <Setter Property="Visibility" Value="Visible"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+
+</ResourceDictionary>

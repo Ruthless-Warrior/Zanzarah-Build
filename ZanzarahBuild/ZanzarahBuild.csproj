@@ -1,0 +1,435 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3A32AD60-1652-4E27-8562-FB64A1005BF6}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ZanzarahBuild</RootNamespace>
+    <AssemblyName>ZanzarahBuild</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>buildicon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.0.1\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encoding.CodePages, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encoding.CodePages.4.5.1\lib\net461\System.Text.Encoding.CodePages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="AppSources\Account Methods.cs" />
+    <Compile Include="AppSources\App MessageBox.cs" />
+    <Compile Include="AppSources\App Icon and Title.cs" />
+    <Compile Include="AppSources\Data.cs" />
+    <Compile Include="AppSources\Labels.cs" />
+    <Compile Include="AppSources\Language.cs" />
+    <Compile Include="AppSources\Level of Magic List.cs" />
+    <Compile Include="AppSources\Nullable Spell Icons.cs" />
+    <Compile Include="AppSources\Settings.cs" />
+    <Compile Include="AppSources\Slot Icons.cs" />
+    <Compile Include="AppSources\Time.cs" />
+    <Compile Include="AppSources\_ AppSources Constructor.cs" />
+    <Compile Include="Common\BitConverter.cs" />
+    <Compile Include="Common\Extensions\ArrayExtension.cs" />
+    <Compile Include="Common\Extensions\StringExtension.cs" />
+    <Compile Include="Common\WPF\BrushExtension.cs" />
+    <Compile Include="Common\WPF\ComboBoxItemTemplateSelector.cs" />
+    <Compile Include="Common\WPF\MVVM\AsyncCommand.cs" />
+    <Compile Include="Common\WPF\MVVM\ModelBase.cs" />
+    <Compile Include="Common\WPF\MVVM\RelayCommand.cs" />
+    <Compile Include="Common\WPF\MVVM\ViewModelBase.cs" />
+    <Compile Include="Common\WPF\MVVM\WindowViewModelBase.cs" />
+    <Compile Include="Common\WPF\OservableCollectionExtension.cs" />
+    <Compile Include="Converters\ActiveSpellIconConverter.cs" />
+    <Compile Include="Converters\AddRemoveMenuItemVisibilityConverter.cs" />
+    <Compile Include="Converters\BinaryRepresentationConverter.cs" />
+    <Compile Include="Converters\ConditionConverter.cs" />
+    <Compile Include="Converters\DialogueConverter.cs" />
+    <Compile Include="Converters\ElementImageConverter.cs" />
+    <Compile Include="Converters\LevelOfMagicItemsSourceConverter.cs" />
+    <Compile Include="Converters\LevelOfMagicToSingleConverter.cs" />
+    <Compile Include="Converters\ManaConverter.cs" />
+    <Compile Include="Converters\ManaMaximumConverter.cs" />
+    <Compile Include="Converters\ManaMinimumConverter.cs" />
+    <Compile Include="Converters\MenuItemSaveFileHeaderConverter.cs" />
+    <Compile Include="Converters\OneMoreConverter.cs" />
+    <Compile Include="Converters\PassiveSpellIconConverter.cs" />
+    <Compile Include="Converters\SlotItemsSourceConverter.cs" />
+    <Compile Include="Converters\SpellNameConverter.cs" />
+    <Compile Include="Converters\TextTypeConverter.cs" />
+    <Compile Include="Converters\VoiceIconConverter.cs" />
+    <Compile Include="Converters\WizformSpellConverter.cs" />
+    <Compile Include="Converters\_TestConverter.cs" />
+    <Compile Include="MessageWindow.xaml.cs">
+      <DependentUpon>MessageWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Data\Element\Element.cs" />
+    <Compile Include="Models\Data\Element\LevelOfMagic.cs" />
+    <Compile Include="Models\Data\Element\SingleLevelOfMagic.cs" />
+    <Compile Include="Models\Data\General\Dialogue.cs" />
+    <Compile Include="Models\Data\General\InventoryEntity.cs" />
+    <Compile Include="Models\Data\General\Item.cs" />
+    <Compile Include="Models\Data\General\Script.cs" />
+    <Compile Include="Models\Data\General\Script\Script.cs" />
+    <Compile Include="Models\Data\General\Spell.cs" />
+    <Compile Include="Models\Data\General\Text.cs" />
+    <Compile Include="Models\Data\General\Wizform.cs" />
+    <Compile Include="Models\Data\Save\InventoryItem.cs" />
+    <Compile Include="Models\Data\Save\InventoryObject.cs" />
+    <Compile Include="Models\Data\Save\InventorySpell.cs" />
+    <Compile Include="Models\Data\Save\InventoryWizform.cs" />
+    <Compile Include="Models\Data\Special\Condition.cs" />
+    <Compile Include="Models\Data\Special\Entity.cs" />
+    <Compile Include="Models\Data\Special\Magic.cs" />
+    <Compile Include="Models\Data\Special\Slot.cs" />
+    <Compile Include="Models\Data\Special\Voice.cs" />
+    <Compile Include="Models\Files\DialogueFile.cs" />
+    <Compile Include="Models\Files\ItemFile.cs" />
+    <Compile Include="Models\Files\SaveFile.cs" />
+    <Compile Include="Models\Files\ScriptFile.cs" />
+    <Compile Include="Models\Files\SpellFile.cs" />
+    <Compile Include="Models\Files\TextFile.cs" />
+    <Compile Include="Models\Files\WizformFile.cs" />
+    <Compile Include="Models\Files\ZanFile.cs" />
+    <Compile Include="ViewModels\Adding\AddSpellsViewModel.cs" />
+    <Compile Include="ViewModels\Adding\AddWizformsViewModel.cs" />
+    <Compile Include="ViewModels\Data\DialogueFileViewModel.cs" />
+    <Compile Include="ViewModels\Data\ItemFileViewModel.cs" />
+    <Compile Include="ViewModels\Data\ScriptFileViewModel.cs" />
+    <Compile Include="ViewModels\Data\SpellFileViewModel.cs" />
+    <Compile Include="ViewModels\Data\TextFileViewModel.cs" />
+    <Compile Include="ViewModels\Data\WizformFileViewModel.cs" />
+    <Compile Include="ViewModels\MessageWindowViewModel.cs" />
+    <Compile Include="ViewModels\MainWindow\CurrentForm.cs" />
+    <Compile Include="ViewModels\MainWindow\MainWindowViewModel - Goto.cs" />
+    <Compile Include="ViewModels\MainWindow\MainWindowViewModel - Labels.cs" />
+    <Compile Include="ViewModels\MainWindow\MainWindowViewModel - Load and Save.cs" />
+    <Compile Include="ViewModels\MainWindow\MainWindowViewModel - Removing.cs" />
+    <Compile Include="ViewModels\MainWindow\MainWindowViewModel - Settings.cs" />
+    <Compile Include="ViewModels\MainWindow\MainWindowViewModel - ViewModels.cs" />
+    <Compile Include="ViewModels\MainWindow\MainWindowViewModel - Visibilities.cs" />
+    <Compile Include="ViewModels\MainWindow\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\Save\SaveFileItemsViewModel.cs" />
+    <Compile Include="ViewModels\Save\SaveFileSpellsViewModel.cs" />
+    <Compile Include="ViewModels\Save\SaveFileWizformsViewModel.cs" />
+    <Compile Include="ViewModels\TestViewModel.cs" />
+    <Compile Include="Views\Adding\AddSpellsView.xaml.cs">
+      <DependentUpon>AddSpellsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Adding\AddWizformsView.xaml.cs">
+      <DependentUpon>AddWizformsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ComboBoxItemTemplateSelector.cs" />
+    <Compile Include="Views\CustomControls\CustomButton.cs" />
+    <Compile Include="Views\CustomControls\CustomRepeatButton.cs" />
+    <Compile Include="Views\CustomControls\CustomToggleButton.cs" />
+    <Compile Include="Views\CustomControls\Zanzarah\TestControl.xaml.cs">
+      <DependentUpon>TestControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CustomControls\Zanzarah\ZanzarahArrowDownButton.cs" />
+    <Compile Include="Views\CustomControls\Zanzarah\ZanzarahArrowLeftButton.cs" />
+    <Compile Include="Views\CustomControls\Zanzarah\ZanzarahArrowRightButton.cs" />
+    <Compile Include="Views\CustomControls\Zanzarah\ZanzarahArrowUpButton.cs" />
+    <Compile Include="Views\CustomControls\Zanzarah\ZanzarahButton.cs" />
+    <Compile Include="Views\CustomControls\Zanzarah\ZanzarahCheckBox.cs" />
+    <Compile Include="Views\CustomControls\Zanzarah\ZanzarahCodeTextBox.cs" />
+    <Compile Include="Views\CustomControls\Zanzarah\ZanzarahComboBox.cs" />
+    <Compile Include="Views\CustomControls\Zanzarah\ZanzarahComboBoxToggleButton.cs" />
+    <Compile Include="Views\CustomControls\Zanzarah\ZanzarahListBox.cs" />
+    <Compile Include="Views\CustomControls\Zanzarah\ZanzarahListView.cs" />
+    <Compile Include="Views\CustomControls\Zanzarah\ZanzarahMenuItem.cs" />
+    <Compile Include="Views\CustomControls\Zanzarah\ZanzarahRadioButton.cs" />
+    <Compile Include="Views\CustomControls\Zanzarah\ZanzarahRichTextBox.cs" />
+    <Compile Include="Views\CustomControls\Zanzarah\ZanzarahScrollBar.cs" />
+    <Compile Include="Views\CustomControls\Zanzarah\ZanzarahScrollViewer.cs" />
+    <Compile Include="Views\CustomControls\Zanzarah\ZanzarahSlider.cs" />
+    <Compile Include="Views\CustomControls\Zanzarah\ZanzarahSmallThumb.cs" />
+    <Compile Include="Views\CustomControls\Zanzarah\ZanzarahTextBlock.cs" />
+    <Compile Include="Views\CustomControls\Zanzarah\ZanzarahTextBox.cs" />
+    <Compile Include="Views\CustomControls\Zanzarah\ZanzarahThumb.cs" />
+    <Compile Include="Views\CustomControls\Zanzarah\ZanzarahToggleButton.cs" />
+    <Compile Include="Views\Data\DialogueFileView.xaml.cs">
+      <DependentUpon>DialogueFileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Data\ItemFileView.xaml.cs">
+      <DependentUpon>ItemFileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Data\ScriptFileView.xaml.cs">
+      <DependentUpon>ScriptFileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Data\SpellFileView.xaml.cs">
+      <DependentUpon>SpellFileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Data\TextFileView.xaml.cs">
+      <DependentUpon>TextFileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Data\WizformFileView.xaml.cs">
+      <DependentUpon>WizformFileView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Element Level\FairyMagicView.xaml.cs">
+      <DependentUpon>FairyMagicView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Element Level\LevelOfMagic.xaml.cs">
+      <DependentUpon>LevelOfMagic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Element Level\MagicView.xaml.cs">
+      <DependentUpon>MagicView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Element Level\SingleLevelOfMagic.xaml.cs">
+      <DependentUpon>SingleLevelOfMagic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Save\SaveFileItemsView.xaml.cs">
+      <DependentUpon>SaveFileItemsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Save\SaveFileSpellsView.xaml.cs">
+      <DependentUpon>SaveFileSpellsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Save\SaveFileWizformsView.xaml.cs">
+      <DependentUpon>SaveFileWizformsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TestView.xaml.cs">
+      <DependentUpon>TestView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Behaviors\CodeTextBoxBehavior.cs" />
+    <Compile Include="Behaviors\DialogueTextBoxBehavior.cs" />
+    <Compile Include="Behaviors\DragWindowBehavior.cs" />
+    <Compile Include="Behaviors\NumberTextBoxBehavior.cs" />
+    <Compile Include="Behaviors\_BehaviorBase.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="MessageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceDictionaries\CommonStylesDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ResourceDictionaries\ControlsResourceDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ResourceDictionaries\ImageResourceDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ResourceDictionaries\TextResourceDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ResourceDictionaries\WindowBackgroundResourceDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ResourceDictionaries\WindowElementsResourceDictionary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Adding\AddSpellsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Adding\AddWizformsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\CustomControls\Zanzarah\TestControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Data\DialogueFileView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Data\ItemFileView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Data\ScriptFileView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Data\SpellFileView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Data\TextFileView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Data\WizformFileView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Element Level\FairyMagicView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Element Level\LevelOfMagic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Element Level\MagicView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Element Level\SingleLevelOfMagic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Save\SaveFileItemsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Save\SaveFileSpellsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Save\SaveFileWizformsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\TestView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="app.manifest" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BitmapSources\BTN000T.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BitmapSources\BTN001T.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BitmapSources\BTN002T.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BitmapSources\BTN004T.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BitmapSources\CLS000T.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BitmapSources\CLS001T.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BitmapSources\DEC000T.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BitmapSources\DND000T.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BitmapSources\INF000T.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BitmapSources\SLD000T.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="buildicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\zb.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\BitmapSources\ATR000T.PNG" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,146 @@
+﻿<Window x:Class="ZanzarahBuild.MessageWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZanzarahBuild"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:behaviors="clr-namespace:ZanzarahBuild.Behaviors"
+        xmlns:converters="clr-namespace:ZanzarahBuild.Converters"
+        xmlns:custom="clr-namespace:ZanzarahBuild.Views.CustomControls"
+        xmlns:models="clr-namespace:ZanzarahBuild.Models"
+        xmlns:viewmodels="clr-namespace:ZanzarahBuild.ViewModels"
+        xmlns:views="clr-namespace:ZanzarahBuild.Views"
+        xmlns:zanzarah="clr-namespace:ZanzarahBuild.Views.CustomControls.Zanzarah"
+        mc:Ignorable="d"
+        Title="{Binding Title}"
+        Icon="{Binding Icon}"
+        Width="{Binding Width, Mode=TwoWay}"
+        Height="{Binding Height, Mode=TwoWay}"
+        WindowState="{Binding WindowState}"
+        Name="window" MinHeight="60" MinWidth="200"
+        DataContext="{Binding ElementName=window, Path=MessageWindowViewModel}"
+        UseLayoutRounding="True">
+    <Window.Style>
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="WindowChrome.WindowChrome">
+                <Setter.Value>
+                    <WindowChrome GlassFrameThickness="1" 
+                                  ResizeBorderThickness="4"
+                                  CaptionHeight="0"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Style>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/generic.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="ResourceDictionaries/WindowElementsResourceDictionary.xaml"/>
+                <ResourceDictionary Source="ResourceDictionaries/WindowBackgroundResourceDictionary.xaml"/>
+                <ResourceDictionary Source="ResourceDictionaries/TextResourceDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Background="{StaticResource Window.Background.Brush}">
+        <Grid.Resources>
+            <Style TargetType="{x:Type FrameworkElement}">
+                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            </Style>
+        </Grid.Resources>
+        <DockPanel Margin="6">
+            <Grid DockPanel.Dock="Top">
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="1"/>
+                        <GradientStop Color="#FF0D0B15"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid Width="38" Height="38" ClipToBounds="True" VerticalAlignment="Center" Margin="5,0">
+                    <Image Source="{Binding Icon}" Height="38" Width="3440" Visibility="Visible"/>
+                </Grid>
+                <zanzarah:ZanzarahTextBlock Grid.Column="1" VerticalAlignment="Center" Margin="9,0,0,0" Text="{Binding Title}" FontSize="18"/>
+                <custom:CustomButton Background="Transparent" Grid.ColumnSpan="3" Margin="-6,-6,-6,0" Tag="Перемещение">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction  Command="{Binding MaximizeWindowCommand}"
+                                                    CommandParameter="{Binding ElementName=window}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <custom:CustomButton.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Grid Background="Transparent">
+                                            <i:Interaction.Behaviors>
+                                                <behaviors:DragWindowBehavior TargetWindow="{Binding ElementName=window}"/>
+                                            </i:Interaction.Behaviors>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </custom:CustomButton.Style>
+                </custom:CustomButton>
+                <Border BorderBrush="{StaticResource Window.Border.Brush2}" Grid.Column="2" Margin="8,0,8,4" BorderThickness="2,0,2,2" Padding="0,1" VerticalAlignment="Top" Background="Transparent">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <custom:CustomButton Style="{StaticResource MinimizeButtonStyle}" Margin="1,0"
+                                             Command="{Binding MinimizeWindowCommand}"
+                                             CommandParameter="{Binding ElementName=window}"/>
+                        <custom:CustomButton Style="{StaticResource MaximizeButtonStyle}" Margin="1,0"
+                                             Command="{Binding MaximizeWindowCommand}"
+                                             CommandParameter="{Binding ElementName=window}"/>
+                        <custom:CustomButton Style="{StaticResource CloseButtonStyle}" Margin="1,0"
+                                             Command="{Binding CloseWindowCommand}"
+                                             CommandParameter="{Binding ElementName=window}"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+            <DockPanel MinWidth="780" MinHeight="520">
+                <Border DockPanel.Dock="Top"
+                        BorderBrush="{StaticResource Window.AdditionalBorder.Brush}"
+                        BorderThickness="0,1" Background="#0C2328">
+                    <Border.Resources>
+                        <converters:_TestConverter x:Key="testConverter"/>
+                    </Border.Resources>
+                </Border>
+                <Border DockPanel.Dock="Bottom" Background="#0C2328"
+                        BorderBrush="{StaticResource Window.Border.Brush2}"
+                        BorderThickness="0,2,0,0" Height="30">
+                    <DockPanel>
+                        <zanzarah:ZanzarahTextBlock Text="{Binding ProgressText}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="12,0" DockPanel.Dock="Left"/>
+                        <zanzarah:ZanzarahTextBlock Text="{Binding Version}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="12,0" DockPanel.Dock="Right"/>
+                        <Grid/>
+                    </DockPanel>
+                </Border>
+                <Grid>
+                    <ContentControl ContentTemplate="{StaticResource Window.InnerShadow}"/>
+                    <Grid Margin="100">
+                        <TextBlock FontFamily="Times New Roman" Foreground="{StaticResource TextBrush}" Background="#80000000" Padding="14" FontSize="16" Text="{Binding Message}"/>
+                    </Grid>
+                </Grid>
+            </DockPanel>
+        </DockPanel>
+        <ContentControl ContentTemplate="{StaticResource Window.Border}"/>
+
+        <Viewbox Width="1" Height="1" Visibility="Hidden">
+        </Viewbox>
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Loaded">
+                <i:InvokeCommandAction Command="{Binding WindowLoadedCommand}"/>
+            </i:EventTrigger>
+            <i:EventTrigger EventName="Loaded">
+                <i:InvokeCommandAction Command="{Binding WindowLoadedCommand}"/>
+            </i:EventTrigger>
+            <i:EventTrigger EventName="Closing">
+                <i:InvokeCommandAction Command="{Binding WindowClosingCommand}"/>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+    </Grid>
+</Window>

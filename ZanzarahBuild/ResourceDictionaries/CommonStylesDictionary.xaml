@@ -1,0 +1,23 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:ZanzarahBuild.ResourceDictionaries"
+                    xmlns:zanzarah="clr-namespace:ZanzarahBuild.Views.CustomControls.Zanzarah">
+    <Style TargetType="zanzarah:ZanzarahTextBlock" x:Key="zanLabelStyle">
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Background" Value="#B0000000"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    <Style TargetType="zanzarah:ZanzarahSlider" x:Key="zanSliderStyle">
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Grid.Column" Value="1"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    <Style TargetType="zanzarah:ZanzarahTextBox" x:Key="zanSliderValueTextBoxStyle">
+        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Grid.Column" Value="2"/>
+        <Setter Property="Width" Value="50"/>
+        <Setter Property="HorizontalContentAlignment" Value="Right"/>
+        <Setter Property="IsReadOnly" Value="True"/>
+    </Style>
+</ResourceDictionary>

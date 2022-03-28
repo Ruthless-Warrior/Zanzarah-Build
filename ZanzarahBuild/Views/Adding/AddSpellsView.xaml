@@ -1,0 +1,115 @@
+﻿<UserControl x:Class="ZanzarahBuild.Views.AddSpellsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZanzarahBuild.Views"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:behaviors="clr-namespace:ZanzarahBuild.Behaviors"
+             xmlns:converters="clr-namespace:ZanzarahBuild.Converters"
+             xmlns:zanzarah="clr-namespace:ZanzarahBuild.Views.CustomControls.Zanzarah"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ZanzarahBuild;component/ResourceDictionaries/CommonStylesDictionary.xaml"/>
+                <ResourceDictionary Source="/ZanzarahBuild;component/ResourceDictionaries/ControlsResourceDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="370"/>
+            <ColumnDefinition MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+        <zanzarah:ZanzarahListView x:Name="sourceList" Margin="10" ScrollViewer.HorizontalScrollBarVisibility="Auto" SelectionMode="Extended"
+                                   ItemsSource="{Binding Spells}" SelectedItem="{Binding Selected, Mode=OneWayToSource}" VirtualizingStackPanel.IsVirtualizing="False">
+            <zanzarah:ZanzarahListView.View>
+                <GridView>
+                    <GridViewColumn Width="{Binding ElementName=name_Width, Path=ActualWidth}">
+                        <GridViewColumn.Header>
+                            <zanzarah:ZanzarahTextBlock HorizontalAlignment="Left" Margin="10,3" Text="{Binding Spells_Label}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="-6,0">
+                                    <StackPanel Margin="10,1" Orientation="Horizontal">
+                                        <Image Width="38" Height="38" Margin="5" Source="{Binding Icon}"/>
+                                        <zanzarah:ZanzarahTextBlock VerticalAlignment="Center" Text="{Binding Name}"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </zanzarah:ZanzarahListView.View>
+        </zanzarah:ZanzarahListView>
+        <Viewbox Visibility="Hidden" Height="0.1" Width="0.1">
+            <Viewbox.Resources>
+                <Style TargetType="ListBox">
+                    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+                    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+                    <Setter Property="ItemsSource" Value="{Binding Spells}"/>
+                </Style>
+            </Viewbox.Resources>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel x:Name="name_Width">
+                    <zanzarah:ZanzarahTextBlock Margin="14,3" Text="{Binding Spells_Label}"/>
+                    <ListBox>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="10,1" Orientation="Horizontal">
+                                    <local:LevelOfMagic HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,1" DataContext="{Binding Spell.LevelOfMagic}"/>
+                                    <Image Width="38" Height="38" Margin="5" Source="{Binding Icon}"/>
+                                    <zanzarah:ZanzarahTextBlock Text="{Binding Name}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </StackPanel>
+        </Viewbox>
+        <zanzarah:ZanzarahListBox x:Name="buffer" Grid.Column="1" Grid.RowSpan="2" Margin="10" ItemsSource="{Binding Buffer}" SelectionMode="Extended" VirtualizingStackPanel.IsVirtualizing="False">
+            <zanzarah:ZanzarahListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <Grid Background="Transparent">
+                                    <Image Width="38" Height="38" Margin="12" Source="{Binding Spell.Icon}"/>
+                                    <ContentControl Template="{StaticResource Selection.Angles}" Width="50" Height="50" Style="{StaticResource Selection.Style}"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </zanzarah:ZanzarahListBox.ItemContainerStyle>
+
+            <zanzarah:ZanzarahListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel/>
+                </ItemsPanelTemplate>
+            </zanzarah:ZanzarahListBox.ItemsPanel>
+        </zanzarah:ZanzarahListBox>
+        <StackPanel Grid.Row="1" Margin="5">
+            <DockPanel>
+                <zanzarah:ZanzarahTextBlock Margin="5" Text="{Binding Quantity_Label}" Style="{StaticResource zanLabelStyle}" DockPanel.Dock="Left"/>
+                <zanzarah:ZanzarahTextBox Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"
+                                          Text="{Binding Value, ElementName=quantity_Slider}" Width="40" DockPanel.Dock="Right"/>
+                <zanzarah:ZanzarahSlider x:Name="quantity_Slider" Maximum="20" Minimum="1" Margin="5" Value="{Binding Quantity}"/>
+            </DockPanel>
+            <UniformGrid Columns="2" Rows="2">
+                <zanzarah:ZanzarahButton Content="{Binding Add_Label}" Command="{Binding AddCommand}" Margin="5" Padding="3"/>
+                <zanzarah:ZanzarahButton Content="{Binding Remove_Label}" Command="{Binding RemoveCommand}" Margin="5" Padding="3"/>
+                <zanzarah:ZanzarahButton Content="{Binding Ok_Label}" Command="{Binding OkCommand}" Margin="5" Padding="3"/>
+                <zanzarah:ZanzarahButton Content="{Binding Cancel_Label}" Command="{Binding CancelCommand}" Margin="5" Padding="3"/>
+            </UniformGrid>
+        </StackPanel>
+    </Grid>
+</UserControl>

@@ -1,0 +1,241 @@
+﻿<UserControl x:Class="ZanzarahBuild.Views.ScriptFileView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:behaviors="clr-namespace:ZanzarahBuild.Behaviors"
+             xmlns:local="clr-namespace:ZanzarahBuild.Views"
+             xmlns:converters="clr-namespace:ZanzarahBuild.Converters"
+             xmlns:zanzarah="clr-namespace:ZanzarahBuild.Views.CustomControls.Zanzarah"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ZanzarahBuild;component/ResourceDictionaries/CommonStylesDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.Resources>
+            <converters:HexRepresentationConverter x:Key="hexConverter"/>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition MinWidth="172"/>
+            <ColumnDefinition Width="4*"/>
+        </Grid.ColumnDefinitions>
+        <zanzarah:ZanzarahListView x:Name="sourceList" Margin="10" ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                                   ItemsSource="{Binding File.Scripts}" SelectedItem="{Binding Selected, Mode=TwoWay}" SelectionMode="Single"
+                                   VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling">
+            <zanzarah:ZanzarahListView.View>
+                <GridView>
+                    <GridViewColumn Width="{Binding ElementName=number_Width, Path=ActualWidth}">
+                        <GridViewColumn.Header>
+                            <zanzarah:ZanzarahTextBlock HorizontalAlignment="Left" Margin="10,3" Text="{Binding Number_Label}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="-6,0">
+                                    <zanzarah:ZanzarahTextBlock HorizontalAlignment="Right" Margin="10,1" Text="{Binding Number}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="{Binding ElementName=id_Width, Path=ActualWidth}">
+                        <GridViewColumn.Header>
+                            <zanzarah:ZanzarahTextBlock HorizontalAlignment="Left" Margin="10,3" Text="ID"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="-6,0">
+                                    <zanzarah:ZanzarahTextBlock HorizontalAlignment="Left" Margin="10,1" Text="{Binding Id, Converter={StaticResource hexConverter}}" FontFamily="Consolas"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="{Binding ElementName=code1_Width, Path=ActualWidth}">
+                        <GridViewColumn.Header>
+                            <zanzarah:ZanzarahTextBlock HorizontalAlignment="Left" Margin="10,3" Text="{Binding Code1_Label}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="-6,0">
+                                    <zanzarah:ZanzarahTextBlock HorizontalAlignment="Left" Margin="10,1" Text="{Binding Code1, Converter={StaticResource hexConverter}}" FontFamily="Consolas"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="{Binding ElementName=code2_Width, Path=ActualWidth}">
+                        <GridViewColumn.Header>
+                            <zanzarah:ZanzarahTextBlock HorizontalAlignment="Left" Margin="10,3" Text="{Binding Code2_Label}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="-6,0">
+                                    <zanzarah:ZanzarahTextBlock HorizontalAlignment="Left" Margin="10,1" Text="{Binding Code2, Converter={StaticResource hexConverter}}" FontFamily="Consolas"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </zanzarah:ZanzarahListView.View>
+        </zanzarah:ZanzarahListView>
+        <Viewbox Visibility="Hidden" Height="0.1" Width="0.1">
+            <Viewbox.Resources>
+                <Style TargetType="ListBox">
+                    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+                    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+                    <Setter Property="ItemsSource" Value="{Binding File.Scripts}"/>
+                </Style>
+            </Viewbox.Resources>
+            <StackPanel Orientation="Horizontal" VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling">
+                <StackPanel x:Name="number_Width">
+                    <zanzarah:ZanzarahTextBlock Margin="14,3" Text="{Binding Number_Label}"/>
+                </StackPanel>
+                <StackPanel x:Name="id_Width">
+                    <zanzarah:ZanzarahTextBlock Margin="14,3" Text="ID"/>
+                    <ListBox>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <zanzarah:ZanzarahTextBlock Margin="10,1" Text="{Binding Id, Converter={StaticResource hexConverter}}" FontFamily="Consolas"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+                <StackPanel x:Name="code1_Width">
+                    <zanzarah:ZanzarahTextBlock Margin="14,3" Text="{Binding Code1_Label}"/>
+                    <ListBox>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <zanzarah:ZanzarahTextBlock HorizontalAlignment="Left" Margin="10,1" Text="{Binding Code1, Converter={StaticResource hexConverter}}" FontFamily="Consolas"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+                <StackPanel x:Name="code2_Width">
+                    <zanzarah:ZanzarahTextBlock Margin="14,3" Text="{Binding Code2_Label}"/>
+                    <ListBox>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <zanzarah:ZanzarahTextBlock Margin="10,1" Text="{Binding Code2, Converter={StaticResource hexConverter}}" FontFamily="Consolas"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </StackPanel>
+        </Viewbox>
+        <Grid Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition MinWidth="149"/>
+            </Grid.ColumnDefinitions>
+            <Grid Margin="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Grid.Row="0" Grid.Column="0" Text="{Binding String1_Label}"/>
+                <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Grid.Row="0" Grid.Column="1" Text="{Binding String2_Label}"/>
+                <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Grid.Row="0" Grid.Column="2" Text="{Binding String3_Label}"/>
+                <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Grid.Row="2" Grid.Column="0" Text="{Binding String4_Label}"/>
+                <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Grid.Row="2" Grid.Column="1" Text="{Binding String5_Label}"/>
+                <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Grid.Row="2" Grid.Column="2" Text="{Binding String6_Label}"/>
+
+                <zanzarah:ZanzarahTextBox Grid.Row="1" Grid.Column="0" Margin="5" Text="{Binding Selected.String1, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" AcceptsTab="True">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="GotFocus">
+                            <i:InvokeCommandAction Command="{Binding ChangeHexCommand}" CommandParameter="{Binding Selected.String1}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding ChangeHexCommand}" CommandParameter="{Binding Selected.String1}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </zanzarah:ZanzarahTextBox>
+                <zanzarah:ZanzarahTextBox Grid.Row="1" Grid.Column="1" Margin="5" Text="{Binding Selected.String2, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" AcceptsTab="True">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="GotFocus">
+                            <i:InvokeCommandAction Command="{Binding ChangeHexCommand}" CommandParameter="{Binding Selected.String2}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding ChangeHexCommand}" CommandParameter="{Binding Selected.String2}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </zanzarah:ZanzarahTextBox>
+                <zanzarah:ZanzarahTextBox Grid.Row="1" Grid.Column="2" Margin="5" Text="{Binding Selected.String3, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" AcceptsTab="True">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="GotFocus">
+                            <i:InvokeCommandAction Command="{Binding ChangeHexCommand}" CommandParameter="{Binding Selected.String3}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding ChangeHexCommand}" CommandParameter="{Binding Selected.String3}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </zanzarah:ZanzarahTextBox>
+                <zanzarah:ZanzarahTextBox Grid.Row="3" Grid.Column="0" Margin="5" Text="{Binding Selected.String4, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" AcceptsTab="True">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="GotFocus">
+                            <i:InvokeCommandAction Command="{Binding ChangeHexCommand}" CommandParameter="{Binding Selected.String4}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding ChangeHexCommand}" CommandParameter="{Binding Selected.String4}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </zanzarah:ZanzarahTextBox>
+                <zanzarah:ZanzarahTextBox Grid.Row="3" Grid.Column="1" Margin="5" Text="{Binding Selected.String5, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" AcceptsTab="True">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="GotFocus">
+                            <i:InvokeCommandAction Command="{Binding ChangeHexCommand}" CommandParameter="{Binding Selected.String5}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding ChangeHexCommand}" CommandParameter="{Binding Selected.String5}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </zanzarah:ZanzarahTextBox>
+                <zanzarah:ZanzarahTextBox Grid.Row="3" Grid.Column="2" Margin="5" Text="{Binding Selected.String6, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" AcceptsTab="True">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="GotFocus">
+                            <i:InvokeCommandAction Command="{Binding ChangeHexCommand}" CommandParameter="{Binding Selected.String6}"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding ChangeHexCommand}" CommandParameter="{Binding Selected.String6}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </zanzarah:ZanzarahTextBox>
+            </Grid>
+            <Grid Margin="5" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Grid.Row="0" Text="ID"/>
+                <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Grid.Row="1" Text="{Binding Code1_Label}"/>
+                <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Grid.Row="2" Text="{Binding Code2_Label}"/>
+                
+                <zanzarah:ZanzarahCodeTextBox Grid.Row="0" Grid.Column="1" Margin="5" VerticalContentAlignment="Center"
+                                          Text="{Binding Selected.Id, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource hexConverter}}"/>
+                <zanzarah:ZanzarahCodeTextBox Grid.Row="1" Grid.Column="1" Margin="5" VerticalContentAlignment="Center"
+                                          Text="{Binding Selected.Code1, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource hexConverter}}"/>
+                <zanzarah:ZanzarahCodeTextBox Grid.Row="2" Grid.Column="1" Margin="5" VerticalContentAlignment="Center"
+                                          Text="{Binding Selected.Code2, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource hexConverter}}"/>
+                <zanzarah:ZanzarahScrollViewer Grid.Row="3" Grid.ColumnSpan="2" Margin="5">
+                    <zanzarah:ZanzarahTextBlock Margin="5" FontFamily="Consolas" Text="{Binding HexCode}" TextWrapping="WrapWithOverflow"/>
+                </zanzarah:ZanzarahScrollViewer>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

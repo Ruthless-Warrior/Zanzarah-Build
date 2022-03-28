@@ -1,0 +1,92 @@
+﻿<UserControl x:Class="ZanzarahBuild.Views.MagicView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:local="clr-namespace:ZanzarahBuild.Views"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:behaviors="clr-namespace:ZanzarahBuild.Behaviors"
+             xmlns:converters="clr-namespace:ZanzarahBuild.Converters"
+             xmlns:zanzarah="clr-namespace:ZanzarahBuild.Views.CustomControls.Zanzarah"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             Name="uc">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ZanzarahBuild;component/ResourceDictionaries/CommonStylesDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <StackPanel>
+        <StackPanel.Resources>
+            <converters:LevelOfMagicItemsSourceConverter x:Key="lomisConverter"/>
+            <converters:SlotItemsSourceConverter x:Key="slotItemsSourceConverter"/>
+        </StackPanel.Resources>
+        <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Text="{Binding Title_Label}"/>
+        <Grid x:Name="slot_Grid">
+            <Grid.Tag>
+                <x:Array Type="sys:Byte">
+                    <sys:Byte>0</sys:Byte>
+                    <sys:Byte>1</sys:Byte>
+                    <sys:Byte>2</sys:Byte>
+                    <sys:Byte>3</sys:Byte>
+                    <sys:Byte>4</sys:Byte>
+                </x:Array>
+            </Grid.Tag>
+            <zanzarah:ZanzarahComboBox Margin="5" ItemsSource="{Binding ElementName=slot_Grid, Path=Tag, Converter={StaticResource slotItemsSourceConverter}}"
+                                       SelectedValue="{Binding Slot}" SelectedValuePath="Number">
+                <zanzarah:ZanzarahComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="10,1" Orientation="Horizontal">
+                            <Grid>
+                                <Image Source="{Binding Image}" Width="40" Height="40" Margin="5"/>
+                                <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding SlotNumber}"/>
+                            </Grid>
+                            <zanzarah:ZanzarahTextBlock VerticalAlignment="Center" Text="{Binding SlotTitle}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </zanzarah:ZanzarahComboBox.ItemTemplate>
+            </zanzarah:ZanzarahComboBox>
+        </Grid>
+        <Grid DataContext="{Binding LevelOfMagic}">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.Resources>
+                <Style TargetType="zanzarah:ZanzarahComboBox">
+                    <Setter Property="ItemTemplate">
+                        <Setter.Value>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="3">
+                                    <local:SingleLevelOfMagic DataContext="{Binding}" Margin="2,0,14,0"/>
+                                    <zanzarah:ZanzarahTextBlock Text="{Binding Element.Text}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Setter Property="ItemsSource" Value="{Binding Path=IsPassive, Converter={StaticResource lomisConverter}}"/>
+                    <Setter Property="Margin" Value="5"/>
+                    <Setter Property="Grid.Column" Value="1"/>
+                    <Setter Property="SelectedValuePath" Value="Element.Number"/>
+                </Style>
+            </Grid.Resources>
+            <zanzarah:ZanzarahComboBox Grid.Row="0" SelectedValue="{Binding Element1.Number}"/>
+            <zanzarah:ZanzarahComboBox Grid.Row="1" SelectedValue="{Binding Element2.Number}"/>
+            <zanzarah:ZanzarahComboBox Grid.Row="2" SelectedValue="{Binding Element3.Number}"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Text="{Binding Level_Label}"/>
+            <zanzarah:ZanzarahSlider Maximum="60" Minimum="0" Style="{StaticResource zanSliderStyle}" Value="{Binding Level}"/>
+            <zanzarah:ZanzarahTextBox Style="{StaticResource zanSliderValueTextBoxStyle}" Text="{Binding Level}"/>
+        </Grid>
+    </StackPanel>
+</UserControl>

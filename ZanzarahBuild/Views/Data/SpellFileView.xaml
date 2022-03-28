@@ -1,0 +1,462 @@
+﻿<UserControl x:Class="ZanzarahBuild.Views.SpellFileView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZanzarahBuild.Views"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:behaviors="clr-namespace:ZanzarahBuild.Behaviors"
+             xmlns:converters="clr-namespace:ZanzarahBuild.Converters"
+             xmlns:zanzarah="clr-namespace:ZanzarahBuild.Views.CustomControls.Zanzarah"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ZanzarahBuild;component/ResourceDictionaries/CommonStylesDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.Resources>
+            <converters:HexRepresentationConverter x:Key="hexConverter"/>
+            <converters:OneMoreConverter x:Key="oneMoreConverter"/>
+            <converters:LevelOfMagicToSingleConverter x:Key="slomConverter"/>
+            <converters:ManaConverter x:Key="manaConverter"/>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="400"/>
+        </Grid.ColumnDefinitions>
+        <zanzarah:ZanzarahListView x:Name="sourceList" Margin="10" ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                                   ItemsSource="{Binding File.Spells}" SelectedItem="{Binding Selected, Mode=TwoWay}" SelectionMode="Extended"
+                                   VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling">
+            <zanzarah:ZanzarahListView.View>
+                <GridView>
+                    <GridViewColumn Width="{Binding ElementName=id_Width, Path=ActualWidth}">
+                        <GridViewColumn.Header>
+                            <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" Margin="10,3" Text="ID"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="-6,0">
+                                    <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,1" Text="{Binding Id, Converter={StaticResource hexConverter}}" FontFamily="Consolas"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="{Binding ElementName=number_Width, Path=ActualWidth}">
+                        <GridViewColumn.Header>
+                            <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" Margin="10,3" Text="{Binding Number_Label}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="-6,0">
+                                    <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,1" Text="{Binding Number}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="{Binding ElementName=name_Width, Path=ActualWidth}">
+                        <GridViewColumn.Header>
+                            <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" Margin="10,3" Text="{Binding Name_Label}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="-6,0">
+                                    <StackPanel Margin="10,1" Orientation="Horizontal">
+                                        <Image Source="{Binding Icon}" Width="38" Height="38" Margin="5"/>
+                                        <zanzarah:ZanzarahTextBlock VerticalAlignment="Center" Text="{Binding Name}"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="{Binding ElementName=type_Width, Path=ActualWidth}">
+                        <GridViewColumn.Header>
+                            <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" Margin="10,3" Text="{Binding Type_Label}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="-6,0">
+                                    <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,1" Text="{Binding Type}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="{Binding ElementName=level_Width, Path=ActualWidth}">
+                        <GridViewColumn.Header>
+                            <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" Margin="10,3" Text="{Binding Level_Label}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="-6,0">
+                                    <local:LevelOfMagic HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,1" DataContext="{Binding LevelOfMagic}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="{Binding ElementName=mdfr_Width, Path=ActualWidth}">
+                        <GridViewColumn.Header>
+                            <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" Margin="10,3" Text="{Binding Mana_Label}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="-6,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image VerticalAlignment="Center" Width="20" Height="20" Margin="5">
+                                            <Image.Source>
+                                                <CroppedBitmap Source="\ZanzarahBuild;component\Resources\BitmapSources\ATR000T.png" SourceRect="39,3,15,14"/>
+                                            </Image.Source>
+                                        </Image>
+                                        <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,1" Text="{Binding Mana, Converter={StaticResource manaConverter}}"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="{Binding ElementName=mdfr_Width, Path=ActualWidth}">
+                        <GridViewColumn.Header>
+                            <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" Margin="10,3" Text="{Binding Damage_Label}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="-6,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image VerticalAlignment="Center" Width="20" Height="20" Margin="5">
+                                            <Image.Source>
+                                                <CroppedBitmap Source="\ZanzarahBuild;component\Resources\BitmapSources\ATR000T.png" SourceRect="58,3,15,14"/>
+                                            </Image.Source>
+                                        </Image>
+                                        <zanzarah:ZanzarahTextBlock x:Name="damage_TextBox" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,1" Text="{Binding Damage, Converter={StaticResource oneMoreConverter}}"/>
+                                    </StackPanel>
+                                </Grid>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding LevelOfMagic.IsPassive}" Value="True">
+                                        <Setter TargetName="damage_TextBox" Property="Text" Value="-"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="{Binding ElementName=mdfr_Width, Path=ActualWidth}">
+                        <GridViewColumn.Header>
+                            <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" Margin="10,3" Text="{Binding FireRate_Label}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="-6,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image VerticalAlignment="Center" Width="20" Height="20" Margin="5">
+                                            <Image.Source>
+                                                <CroppedBitmap Source="\ZanzarahBuild;component\Resources\BitmapSources\ATR000T.png" SourceRect="79,3,15,14"/>
+                                            </Image.Source>
+                                        </Image>
+                                        <zanzarah:ZanzarahTextBlock x:Name="fireRate_TextBox" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,1" Text="{Binding FireRate, Converter={StaticResource oneMoreConverter}}"/>
+                                    </StackPanel>
+                                </Grid>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding LevelOfMagic.IsPassive}" Value="True">
+                                        <Setter TargetName="fireRate_TextBox" Property="Text" Value="-"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </zanzarah:ZanzarahListView.View>
+        </zanzarah:ZanzarahListView>
+        <Viewbox Visibility="Hidden" Height="0.1" Width="0.1">
+            <Viewbox.Resources>
+                <Style TargetType="ListBox">
+                    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+                    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+                    <Setter Property="ItemsSource" Value="{Binding File.Spells}"/>
+                </Style>
+            </Viewbox.Resources>
+            <StackPanel Orientation="Horizontal" VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling">
+                <StackPanel x:Name="id_Width">
+                    <zanzarah:ZanzarahTextBlock Margin="13,3" Text="ID"/>
+                    <ListBox>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <zanzarah:ZanzarahTextBlock Margin="10,1" Text="{Binding Id, Converter={StaticResource hexConverter}}" FontFamily="Consolas"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+                <StackPanel x:Name="number_Width">
+                    <zanzarah:ZanzarahTextBlock Margin="13,3" Text="{Binding Number_Label}"/>
+                </StackPanel>
+                <StackPanel x:Name="name_Width">
+                    <zanzarah:ZanzarahTextBlock Margin="13,3" Text="{Binding Name_Label}"/>
+                    <ListBox>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="10,1" Orientation="Horizontal">
+                                    <Image Source="{Binding Icon}" Width="38" Height="38" Margin="5"/>
+                                    <zanzarah:ZanzarahTextBlock Text="{Binding Name}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+                <StackPanel x:Name="type_Width">
+                    <zanzarah:ZanzarahTextBlock Margin="13,3" Text="{Binding Type_Label}"/>
+                    <ListBox>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <zanzarah:ZanzarahTextBlock Margin="10,1" Text="{Binding Type}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+                <StackPanel x:Name="mdfr_Width">
+                    <zanzarah:ZanzarahTextBlock Margin="13,3" Text="{Binding Mana_Label}"/>
+                    <zanzarah:ZanzarahTextBlock Margin="13,3" Text="{Binding Damage_Label}"/>
+                    <zanzarah:ZanzarahTextBlock Margin="13,3" Text="{Binding FireRate_Label}"/>
+                </StackPanel>
+                <StackPanel x:Name="level_Width">
+                    <zanzarah:ZanzarahTextBlock Margin="13,3" Text="{Binding Level_Label}"/>
+                    <ListBox>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <local:LevelOfMagic HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,1" DataContext="{Binding LevelOfMagic}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </StackPanel>
+        </Viewbox>
+        <zanzarah:ZanzarahScrollViewer Grid.Column="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Grid.Column="0" Text="ID"/>
+                    <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Grid.Column="2" Text="{Binding Number_Label}"/>
+                    
+                    <zanzarah:ZanzarahCodeTextBox Grid.Column="1" Margin="5" VerticalContentAlignment="Center"
+                                                  Text="{Binding Selected.Id, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource hexConverter}}"/>
+                    <zanzarah:ZanzarahTextBox Grid.Column="3" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"
+                                              Text="{Binding Selected.Number, UpdateSourceTrigger=PropertyChanged}" Width="40">
+                        <i:Interaction.Behaviors>
+                            <behaviors:NumberTextBoxBehavior MinValue="0" MaxValue="255"/>
+                        </i:Interaction.Behaviors>
+                    </zanzarah:ZanzarahTextBox>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Resources>
+                        <local:ComboBoxItemTemplateSelector x:Key="comboBoxItemTemplateSelector">
+                            <local:ComboBoxItemTemplateSelector.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Margin="2" Width="400">
+                                        <zanzarah:ZanzarahTextBlock Text="{Binding Id, Converter={StaticResource hexConverter}}" FontFamily="Consolas"/>
+                                        <zanzarah:ZanzarahTextBlock Text="-" Margin="8,0"/>
+                                        <zanzarah:ZanzarahTextBlock Text="{Binding Content}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </local:ComboBoxItemTemplateSelector.ItemTemplate>
+                            <local:ComboBoxItemTemplateSelector.SelectedItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Margin="2">
+                                        <zanzarah:ZanzarahTextBlock Text="{Binding Id, Converter={StaticResource hexConverter}}" FontFamily="Consolas"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </local:ComboBoxItemTemplateSelector.SelectedItemTemplate>
+                        </local:ComboBoxItemTemplateSelector>
+                    </Grid.Resources>
+                    
+                    <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Grid.Row="0" Text="{Binding Name_Label}"/>
+                    <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Grid.Row="2" Text="{Binding Description_Label}"/>
+                    
+                    <zanzarah:ZanzarahComboBox Grid.Row="0" Grid.Column="1" Margin="5" ItemsSource="{Binding File.TextFile.Texts}" Width="113"
+                                               SelectedValue="{Binding Selected.NameId}" SelectedValuePath="Id" ItemTemplateSelector="{StaticResource comboBoxItemTemplateSelector}"/>
+                    <zanzarah:ZanzarahTextBox x:Name="name_TextBox" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" Text="{Binding Selected.Name, UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="TextChanged">
+                                <i:InvokeCommandAction Command="{Binding TextChangedCommand}" CommandParameter="{Binding Text, ElementName=name_TextBox}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </zanzarah:ZanzarahTextBox>
+                    
+                    <zanzarah:ZanzarahComboBox Grid.Row="2" Grid.Column="1" Margin="5" ItemsSource="{Binding File.TextFile.Texts}" Width="113"
+                                               SelectedValue="{Binding Selected.DescriptionId}" SelectedValuePath="Id" ItemTemplateSelector="{StaticResource comboBoxItemTemplateSelector}"/>
+                    <zanzarah:ZanzarahTextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" Text="{Binding Selected.Description, UpdateSourceTrigger=PropertyChanged}"
+                                              Height="150"  TextWrapping="WrapWithOverflow"/>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <zanzarah:ZanzarahCheckBox Content="{Binding Passive_Label}" Margin="5" IsChecked="{Binding Selected.IsPassive}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Checked">
+                                <i:InvokeCommandAction Command="{Binding PassiveCheckedCommand}"/>
+                            </i:EventTrigger>
+                            <i:EventTrigger EventName="Unchecked">
+                                <i:InvokeCommandAction Command="{Binding PassiveUncheckedCommand}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </zanzarah:ZanzarahCheckBox>
+                </Grid>
+                <Grid Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.Resources>
+                        <Style TargetType="zanzarah:ZanzarahComboBox" x:Key="active">
+                            <Setter Property="ItemTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" Margin="3">
+                                            <local:SingleLevelOfMagic DataContext="{Binding}" Margin="2,0,14,0"/>
+                                            <zanzarah:ZanzarahTextBlock Text="{Binding Element.Text}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="ItemsSource" Value="{Binding ActiveLevelOfMagicList}"/>
+                            <Setter Property="Margin" Value="5"/>
+                            <Setter Property="Grid.Column" Value="1"/>
+                            <Setter Property="SelectedValuePath" Value="Element.Number"/>
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Selected.IsPassive}" Value="true">
+                                    <Setter Property="Visibility" Value="Collapsed"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                        <Style TargetType="zanzarah:ZanzarahComboBox" x:Key="passive">
+                            <Setter Property="ItemTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" Margin="3">
+                                            <local:SingleLevelOfMagic DataContext="{Binding}" Margin="2,0,14,0"/>
+                                            <zanzarah:ZanzarahTextBlock Text="{Binding Element.Text}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="ItemsSource" Value="{Binding PassiveLevelOfMagicList}"/>
+                            <Setter Property="Margin" Value="5"/>
+                            <Setter Property="Grid.Column" Value="1"/>
+                            <Setter Property="SelectedValuePath" Value="Element.Number"/>
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Selected.IsPassive}" Value="true">
+                                    <Setter Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Resources>
+                    <zanzarah:ZanzarahComboBox Grid.Row="0" SelectedValue="{Binding Selected.LevelOfMagic.Element1.Number}" Style="{StaticResource active}"/>
+                    <zanzarah:ZanzarahComboBox Grid.Row="1" SelectedValue="{Binding Selected.LevelOfMagic.Element2.Number}" Style="{StaticResource active}"/>
+                    <zanzarah:ZanzarahComboBox Grid.Row="2" SelectedValue="{Binding Selected.LevelOfMagic.Element3.Number}" Style="{StaticResource active}"/>
+                    <zanzarah:ZanzarahComboBox Grid.Row="0" SelectedValue="{Binding Selected.LevelOfMagic.Element1.Number}" Style="{StaticResource passive}"/>
+                    <zanzarah:ZanzarahComboBox Grid.Row="1" SelectedValue="{Binding Selected.LevelOfMagic.Element2.Number}" Style="{StaticResource passive}"/>
+                    <zanzarah:ZanzarahComboBox Grid.Row="2" SelectedValue="{Binding Selected.LevelOfMagic.Element3.Number}" Style="{StaticResource passive}"/>
+                </Grid>
+                <Grid Grid.Row="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Grid.Row="0" Text="{Binding Mana_Label}"/>
+                    <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Grid.Row="1" Text="{Binding Damage_Label}"/>
+                    <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Grid.Row="2" Text="{Binding FireRate_Label}"/>
+                    
+                    <zanzarah:ZanzarahSlider Grid.Row="0" Maximum="5" Minimum="0" Value="{Binding Selected.Mana}" Style="{StaticResource zanSliderStyle}"/>
+                    <zanzarah:ZanzarahTextBox Grid.Row="0" Style="{StaticResource zanSliderValueTextBoxStyle}"
+                                              Text="{Binding Selected.Mana, Converter={StaticResource manaConverter}}" IsReadOnly="True"/>
+                    
+                    <zanzarah:ZanzarahSlider Grid.Row="1" Maximum="4" Minimum="0">
+                        <zanzarah:ZanzarahSlider.Style>
+                            <Style TargetType="zanzarah:ZanzarahSlider" BasedOn="{StaticResource zanSliderStyle}">
+                                <Setter Property="Value" Value="{Binding Selected.Damage}"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Selected.LevelOfMagic.IsPassive}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                        <Setter Property="Value" Value="0"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </zanzarah:ZanzarahSlider.Style>
+                    </zanzarah:ZanzarahSlider>
+                    <zanzarah:ZanzarahTextBox Grid.Row="1" IsReadOnly="True">
+                        <zanzarah:ZanzarahTextBox.Style>
+                            <Style TargetType="zanzarah:ZanzarahTextBox" BasedOn="{StaticResource zanSliderValueTextBoxStyle}">
+                                <Setter Property="Text" Value="{Binding Selected.Damage, Converter={StaticResource oneMoreConverter}}"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Selected.LevelOfMagic.IsPassive}" Value="True">
+                                        <Setter Property="Text" Value="-"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </zanzarah:ZanzarahTextBox.Style>
+                        <i:Interaction.Behaviors>
+                            <behaviors:NumberTextBoxBehavior MinValue="1" MaxValue="5"/>
+                        </i:Interaction.Behaviors>
+                    </zanzarah:ZanzarahTextBox>
+                    
+                    <zanzarah:ZanzarahSlider Grid.Row="2" Maximum="4" Minimum="0">
+                        <zanzarah:ZanzarahSlider.Style>
+                            <Style TargetType="zanzarah:ZanzarahSlider" BasedOn="{StaticResource zanSliderStyle}">
+                                <Setter Property="Value" Value="{Binding Selected.FireRate}"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Selected.LevelOfMagic.IsPassive}" Value="True">
+                                        <Setter Property="IsEnabled" Value="False"/>
+                                        <Setter Property="Value" Value="0"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </zanzarah:ZanzarahSlider.Style>
+                    </zanzarah:ZanzarahSlider>
+                    <zanzarah:ZanzarahTextBox Grid.Row="2" IsReadOnly="True">
+                        <zanzarah:ZanzarahTextBox.Style>
+                            <Style TargetType="zanzarah:ZanzarahTextBox" BasedOn="{StaticResource zanSliderValueTextBoxStyle}">
+                                <Setter Property="Text" Value="{Binding Selected.FireRate, Converter={StaticResource oneMoreConverter}}"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Selected.LevelOfMagic.IsPassive}" Value="True">
+                                        <Setter Property="Text" Value="-"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </zanzarah:ZanzarahTextBox.Style>
+                        <i:Interaction.Behaviors>
+                            <behaviors:NumberTextBoxBehavior MinValue="1" MaxValue="5"/>
+                        </i:Interaction.Behaviors>
+                    </zanzarah:ZanzarahTextBox>
+                </Grid>
+            </Grid>
+        </zanzarah:ZanzarahScrollViewer>
+    </Grid>
+</UserControl>

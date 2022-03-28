@@ -1,0 +1,548 @@
+﻿<UserControl x:Class="ZanzarahBuild.Views.WizformFileView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ZanzarahBuild.Views"
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:behaviors="clr-namespace:ZanzarahBuild.Behaviors"
+             xmlns:converters="clr-namespace:ZanzarahBuild.Converters"
+             xmlns:zanzarah="clr-namespace:ZanzarahBuild.Views.CustomControls.Zanzarah"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ZanzarahBuild;component/ResourceDictionaries/CommonStylesDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.Resources>
+            <converters:HexRepresentationConverter x:Key="hexConverter"/>
+            <converters:OneMoreConverter x:Key="oneMoreConverter"/>
+            <converters:LevelOfMagicToSingleConverter x:Key="slomConverter"/>
+            <converters:ManaConverter x:Key="manaConverter"/>
+            <converters:LevelOfMagicItemsSourceConverter x:Key="lomisConverter"/>
+            <converters:VoiceIconConverter x:Key="viconConverter"/>
+            <converters:_TestConverter x:Key="TestConverter"/>
+        </Grid.Resources>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="400"/>
+        </Grid.ColumnDefinitions>
+        <zanzarah:ZanzarahListView x:Name="sourceList" Margin="10" ScrollViewer.HorizontalScrollBarVisibility="Visible"
+                                   ItemsSource="{Binding File.Wizforms}" SelectedItem="{Binding Selected, Mode=TwoWay}" SelectionMode="Extended"
+                                   VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Recycling">
+            <zanzarah:ZanzarahListView.View>
+                <GridView>
+                    <GridViewColumn Width="{Binding ElementName=id_Width, Path=ActualWidth}">
+                        <GridViewColumn.Header>
+                            <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" Margin="10,3" Text="ID"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="-6,0">
+                                    <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,1" Text="{Binding Id, Converter={StaticResource hexConverter}}" FontFamily="Consolas"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="{Binding ElementName=number_Width, Path=ActualWidth}">
+                        <GridViewColumn.Header>
+                            <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" Margin="10,3" Text="{Binding Number_Label}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="-6,0">
+                                    <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,1" Text="{Binding Number}"/>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="{Binding ElementName=name_Width, Path=ActualWidth}">
+                        <GridViewColumn.Header>
+                            <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" Margin="10,3" Text="{Binding Name_Label}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="-6,0">
+                                    <StackPanel Margin="10,1" Orientation="Horizontal">
+                                        <Image Source="{Binding Icon}" Width="38" Height="38" Margin="5"/>
+                                        <zanzarah:ZanzarahTextBlock VerticalAlignment="Center" Text="{Binding Name}"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="{Binding ElementName=element_Width, Path=ActualWidth}">
+                        <GridViewColumn.Header>
+                            <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" Margin="10,3" Text="{Binding Element_Label}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="-6,0">
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,6,0">
+                                        <local:SingleLevelOfMagic DataContext="{Binding Element}" Margin="2,0,14,0" VerticalAlignment="Center"/>
+                                        <zanzarah:ZanzarahTextBlock Text="{Binding Element.Element.Text}" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="{Binding ElementName=hp_Width, Path=ActualWidth}">
+                        <GridViewColumn.Header>
+                            <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" Margin="10,3" Text="{Binding HitPoints_Label}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="-6,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image VerticalAlignment="Center" Width="20" Height="20" Margin="5">
+                                            <Image.Source>
+                                                <CroppedBitmap Source="\ZanzarahBuild;component\Resources\BitmapSources\ATR000T.png" SourceRect="141,3,15,14"/>
+                                            </Image.Source>
+                                        </Image>
+                                        <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,1" Text="{Binding HitPoints}"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="{Binding ElementName=djas_Width, Path=ActualWidth}">
+                        <GridViewColumn.Header>
+                            <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" Margin="10,3" Text="{Binding Dexterity_Label}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="-6,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image VerticalAlignment="Center" Width="20" Height="20" Margin="5">
+                                            <Image.Source>
+                                                <CroppedBitmap Source="\ZanzarahBuild;component\Resources\BitmapSources\ATR000T.png" SourceRect="121,3,15,14"/>
+                                            </Image.Source>
+                                        </Image>
+                                        <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,1" Text="{Binding Dexterity, Converter={StaticResource oneMoreConverter}}"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="{Binding ElementName=djas_Width, Path=ActualWidth}">
+                        <GridViewColumn.Header>
+                            <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" Margin="10,3" Text="{Binding JumpAbility_Label}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="-6,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image VerticalAlignment="Center" Width="20" Height="20" Margin="5">
+                                            <Image.Source>
+                                                <CroppedBitmap Source="\ZanzarahBuild;component\Resources\BitmapSources\ATR000T.png" SourceRect="101,3,15,14"/>
+                                            </Image.Source>
+                                        </Image>
+                                        <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,1" Text="{Binding JumpAbility, Converter={StaticResource oneMoreConverter}}"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="{Binding ElementName=djas_Width, Path=ActualWidth}">
+                        <GridViewColumn.Header>
+                            <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" Margin="10,3" Text="{Binding Special_Label}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="-6,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image VerticalAlignment="Center" Width="20" Height="20" Margin="5">
+                                            <Image.Source>
+                                                <CroppedBitmap Source="\ZanzarahBuild;component\Resources\BitmapSources\ATR000T.png" SourceRect="2,3,15,14"/>
+                                            </Image.Source>
+                                        </Image>
+                                        <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,1" Text="{Binding Special, Converter={StaticResource oneMoreConverter}}"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="{Binding ElementName=xp_Width, Path=ActualWidth}">
+                        <GridViewColumn.Header>
+                            <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" Margin="10,3" Text="{Binding ExperienceModifier_Label}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="-6,0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image VerticalAlignment="Center" Width="20" Height="20" Margin="5">
+                                            <Image.Source>
+                                                <CroppedBitmap Source="\ZanzarahBuild;component\Resources\BitmapSources\ATR000T.png" SourceRect="182,3,15,14"/>
+                                            </Image.Source>
+                                        </Image>
+                                        <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,1" Text="{Binding ExperienceModifier}"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="{Binding ElementName=evowiz_Width, Path=ActualWidth}">
+                        <GridViewColumn.Header>
+                            <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" Margin="10,3" Text="{Binding EvolutionWizform_Label}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="-6,0">
+                                    <StackPanel Margin="10,1" Orientation="Horizontal" DataContext="{Binding EvolutionWizform}">
+                                        <Image Source="{Binding Icon}" Width="38" Height="38" Margin="5"/>
+                                        <zanzarah:ZanzarahTextBlock VerticalAlignment="Center" Text="{Binding Name}"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="{Binding ElementName=evolvl_Width, Path=ActualWidth}">
+                        <GridViewColumn.Header>
+                            <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" Margin="10,3" Text="{Binding EvolutionLevel_Label}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="-6,0">
+                                    <zanzarah:ZanzarahTextBlock x:Name="evolvl_Label" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,1" Text="{Binding EvolutionLevel}"/>
+                                </Grid>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding EvolutionLevel}" Value="-1">
+                                        <Setter Property="Visibility" TargetName="evolvl_Label" Value="Hidden"/>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="{Binding ElementName=voice_Width, Path=ActualWidth}">
+                        <GridViewColumn.Header>
+                            <zanzarah:ZanzarahTextBlock HorizontalAlignment="Center" Margin="10,3" Text="{Binding Voice_Label}"/>
+                        </GridViewColumn.Header>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid Margin="-6,0">
+                                    <StackPanel Margin="10,1" Orientation="Horizontal">
+                                        <Image Source="{Binding Voice, Converter={StaticResource viconConverter}}" Width="38" Height="38" Margin="5"/>
+                                        <zanzarah:ZanzarahTextBlock VerticalAlignment="Center" Text="{Binding Voice}"/>
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </zanzarah:ZanzarahListView.View>
+        </zanzarah:ZanzarahListView>
+        <Viewbox Visibility="Hidden" Height="0.1" Width="0.1">
+            <Viewbox.Resources>
+                <Style TargetType="ListBox">
+                    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+                    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Disabled"/>
+                    <Setter Property="ItemsSource" Value="{Binding File.Wizforms}"/>
+                </Style>
+            </Viewbox.Resources>
+            <StackPanel Orientation="Horizontal">
+                <StackPanel x:Name="id_Width">
+                    <zanzarah:ZanzarahTextBlock Margin="13,3" Text="ID"/>
+                    <ListBox>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <zanzarah:ZanzarahTextBlock Margin="10,1" Text="{Binding Id, Converter={StaticResource hexConverter}}" FontFamily="Consolas"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+                <StackPanel x:Name="number_Width">
+                    <zanzarah:ZanzarahTextBlock Margin="13,3" Text="{Binding Number_Label}"/>
+                </StackPanel>
+                <StackPanel x:Name="name_Width">
+                    <zanzarah:ZanzarahTextBlock Margin="13,3" Text="{Binding Name_Label}"/>
+                    <ListBox>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="10,1" Orientation="Horizontal">
+                                    <Image Source="{Binding Icon}" Width="38" Height="38" Margin="5"/>
+                                    <zanzarah:ZanzarahTextBlock Text="{Binding Name}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+                <StackPanel x:Name="element_Width">
+                    <zanzarah:ZanzarahTextBlock Margin="13,3" Text="{Binding Name_Label}"/>
+                    <ListBox>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="10,1" Orientation="Horizontal">
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,6,0">
+                                        <local:SingleLevelOfMagic DataContext="{Binding Element}" Margin="2,0,14,0" VerticalAlignment="Center"/>
+                                        <zanzarah:ZanzarahTextBlock Text="{Binding Element.Element.Text}" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+                <StackPanel x:Name="hp_Width">
+                    <zanzarah:ZanzarahTextBlock Margin="13,3" Text="{Binding HitPoints_Label}"/>
+                </StackPanel>
+                <StackPanel x:Name="djas_Width">
+                    <zanzarah:ZanzarahTextBlock Margin="13,3" Text="{Binding Dexterity_Label}"/>
+                    <zanzarah:ZanzarahTextBlock Margin="13,3" Text="{Binding JumpAbility_Label}"/>
+                    <zanzarah:ZanzarahTextBlock Margin="13,3" Text="{Binding Special_Label}"/>
+                </StackPanel>
+                <StackPanel x:Name="xp_Width">
+                    <zanzarah:ZanzarahTextBlock Margin="13,3" Text="{Binding ExperienceModifier_Label}"/>
+                </StackPanel>
+                <StackPanel x:Name="evowiz_Width">
+                    <zanzarah:ZanzarahTextBlock Margin="13,3" Text="{Binding EvolutionWizform_Label}"/>
+                    <ListBox>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="10,1" Orientation="Horizontal" DataContext="{Binding EvolutionWizform}">
+                                    <Image Source="{Binding Icon}" Width="38" Height="38" Margin="5"/>
+                                    <zanzarah:ZanzarahTextBlock VerticalAlignment="Center" Text="{Binding Name}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+                <StackPanel x:Name="evolvl_Width">
+                    <zanzarah:ZanzarahTextBlock Margin="13,3" Text="{Binding EvolutionLevel_Label}"/>
+                </StackPanel>
+                <StackPanel x:Name="voice_Width">
+                    <zanzarah:ZanzarahTextBlock Margin="13,3" Text="{Binding Voice_Label}"/>
+                    <ListBox>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="10,1" Orientation="Horizontal">
+                                    <Image Source="{Binding Voice, Converter={StaticResource viconConverter}}" Width="38" Height="38" Margin="5"/>
+                                    <zanzarah:ZanzarahTextBlock VerticalAlignment="Center" Text="{Binding Voice}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+            </StackPanel>
+        </Viewbox>
+        <zanzarah:ZanzarahScrollViewer Grid.Column="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Grid.Column="0" Text="ID"/>
+                    <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Grid.Column="2" Text="{Binding Number_Label}"/>
+
+                    <zanzarah:ZanzarahCodeTextBox Grid.Column="1" Margin="5" VerticalContentAlignment="Center"
+                                                  Text="{Binding Selected.Id, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource hexConverter}}"/>
+                    <zanzarah:ZanzarahTextBox Grid.Column="3" Margin="5" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"
+                                              Text="{Binding Selected.Number, UpdateSourceTrigger=PropertyChanged}" Width="40">
+                        <i:Interaction.Behaviors>
+                            <behaviors:NumberTextBoxBehavior MinValue="0" MaxValue="255"/>
+                        </i:Interaction.Behaviors>
+                    </zanzarah:ZanzarahTextBox>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.Resources>
+                        <local:ComboBoxItemTemplateSelector x:Key="comboBoxItemTemplateSelector">
+                            <local:ComboBoxItemTemplateSelector.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Margin="2" Width="400">
+                                        <zanzarah:ZanzarahTextBlock Text="{Binding Id, Converter={StaticResource hexConverter}}" FontFamily="Consolas"/>
+                                        <zanzarah:ZanzarahTextBlock Text="-" Margin="8,0"/>
+                                        <zanzarah:ZanzarahTextBlock Text="{Binding Content}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </local:ComboBoxItemTemplateSelector.ItemTemplate>
+                            <local:ComboBoxItemTemplateSelector.SelectedItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal" Margin="2">
+                                        <zanzarah:ZanzarahTextBlock Text="{Binding Id, Converter={StaticResource hexConverter}}" FontFamily="Consolas"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </local:ComboBoxItemTemplateSelector.SelectedItemTemplate>
+                        </local:ComboBoxItemTemplateSelector>
+                    </Grid.Resources>
+
+                    <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Grid.Row="0" Text="{Binding Name_Label}"/>
+                    <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Grid.Row="2" Text="{Binding Description_Label}"/>
+
+                    <zanzarah:ZanzarahComboBox Grid.Row="0" Grid.Column="1" Margin="5" ItemsSource="{Binding File.TextFile.Texts}" Width="113"
+                                               SelectedValue="{Binding Selected.NameId}" SelectedValuePath="Id" ItemTemplateSelector="{StaticResource comboBoxItemTemplateSelector}"/>
+                    <zanzarah:ZanzarahTextBox x:Name="name_TextBox" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" Text="{Binding Selected.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="TextChanged">
+                                <i:InvokeCommandAction Command="{Binding NameChangedCommand}" CommandParameter="{Binding Text, ElementName=name_TextBox}"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </zanzarah:ZanzarahTextBox>
+
+                    <zanzarah:ZanzarahComboBox Grid.Row="2" Grid.Column="1" Margin="5" ItemsSource="{Binding File.TextFile.Texts}" Width="113"
+                                               SelectedValue="{Binding Selected.DescriptionId}" SelectedValuePath="Id" ItemTemplateSelector="{StaticResource comboBoxItemTemplateSelector}"/>
+                    <zanzarah:ZanzarahTextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" Text="{Binding Selected.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                              Height="150"  TextWrapping="WrapWithOverflow"/>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Grid.Row="0" Text="{Binding HitPoints_Label}"/>
+                    <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Grid.Row="1" Text="{Binding Dexterity_Label}"/>
+                    <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Grid.Row="2" Text="{Binding JumpAbility_Label}"/>
+                    <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Grid.Row="3" Text="{Binding Special_Label}"/>
+                    <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Grid.Row="4" Text="{Binding ExperienceModifier_Label}"/>
+
+                    <zanzarah:ZanzarahSlider Grid.Row="0" Maximum="500" Minimum="100" Value="{Binding Selected.HitPoints}" Style="{StaticResource zanSliderStyle}"/>
+                    <zanzarah:ZanzarahTextBox Grid.Row="0" Style="{StaticResource zanSliderValueTextBoxStyle}" Text="{Binding Selected.HitPoints}">
+                        <i:Interaction.Behaviors>
+                            <behaviors:NumberTextBoxBehavior MinValue="100" MaxValue="500"/>
+                        </i:Interaction.Behaviors>
+                    </zanzarah:ZanzarahTextBox>
+
+                    <zanzarah:ZanzarahSlider Grid.Row="1" Maximum="5" Minimum="0" Value="{Binding Selected.Dexterity}" Style="{StaticResource zanSliderStyle}"/>
+                    <zanzarah:ZanzarahTextBox Grid.Row="1" Style="{StaticResource zanSliderValueTextBoxStyle}" Text="{Binding Selected.Dexterity, Converter={StaticResource oneMoreConverter}}"/>
+
+                    <zanzarah:ZanzarahSlider Grid.Row="2" Maximum="5" Minimum="0" Value="{Binding Selected.JumpAbility}" Style="{StaticResource zanSliderStyle}"/>
+                    <zanzarah:ZanzarahTextBox Grid.Row="2" Style="{StaticResource zanSliderValueTextBoxStyle}" Text="{Binding Selected.JumpAbility, Converter={StaticResource oneMoreConverter}}"/>
+
+                    <zanzarah:ZanzarahSlider Grid.Row="3" Maximum="4" Minimum="0" Value="{Binding Selected.Special}" Style="{StaticResource zanSliderStyle}"/>
+                    <zanzarah:ZanzarahTextBox Grid.Row="3" Style="{StaticResource zanSliderValueTextBoxStyle}" Text="{Binding Selected.Special, Converter={StaticResource oneMoreConverter}}"/>
+
+                    <zanzarah:ZanzarahSlider Grid.Row="4" Maximum="1000" Minimum="1" Value="{Binding Selected.ExperienceModifier}" Style="{StaticResource zanSliderStyle}"/>
+                    <zanzarah:ZanzarahTextBox Grid.Row="4" Style="{StaticResource zanSliderValueTextBoxStyle}" Text="{Binding Selected.ExperienceModifier}">
+                        <i:Interaction.Behaviors>
+                            <behaviors:NumberTextBoxBehavior MinValue="1" MaxValue="1000"/>
+                        </i:Interaction.Behaviors>
+                    </zanzarah:ZanzarahTextBox>
+                </Grid>
+                <StackPanel Grid.Row="3">
+                    <Border Height="35"/>
+                    <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Text="{Binding Model_Label}"/>
+                    <zanzarah:ZanzarahTextBox Margin="5" Text="{Binding Selected.Model}"/>
+
+                    <Border Height="35"/>
+                    <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Text="{Binding Evolution_Label}"/>
+                    <zanzarah:ZanzarahComboBox ItemsSource="{Binding WizformEvoList}" SelectedValue="{Binding Selected.EvolutionWizformNumber}" SelectedValuePath="Number" Margin="5">
+                        <zanzarah:ZanzarahComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="10,1" Orientation="Horizontal">
+                                    <Image Source="{Binding Icon}" Width="38" Height="38" Margin="5"/>
+                                    <zanzarah:ZanzarahTextBlock VerticalAlignment="Center" Text="{Binding Name}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </zanzarah:ZanzarahComboBox.ItemTemplate>
+                    </zanzarah:ZanzarahComboBox>
+                    <Grid x:Name="evolvl_Grid">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Text="{Binding EvolutionLevel_Label}"/>
+                        <zanzarah:ZanzarahSlider Style="{StaticResource zanSliderStyle}" Maximum="60" Minimum="1" Value="{Binding Selected.EvolutionLevel}"/>
+                        <zanzarah:ZanzarahTextBox Style="{StaticResource zanSliderValueTextBoxStyle}" Text="{Binding Selected.EvolutionLevel}"/>
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Selected.EvolutionWizformNumber}" Value="-1">
+                                        <Setter Property="Visibility" Value="Hidden"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+                    </Grid>
+
+                    <Border Height="35"/>
+                    <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Text="{Binding Voice_Label}"/>
+                    <zanzarah:ZanzarahComboBox ItemsSource="{Binding VoiceList}" SelectedValue="{Binding Selected.Voice}" SelectedValuePath="Number" Margin="5">
+                        <zanzarah:ZanzarahComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="10,1" Orientation="Horizontal">
+                                    <Image Source="{Binding Icon}" Width="38" Height="38" Margin="5"/>
+                                    <zanzarah:ZanzarahTextBlock VerticalAlignment="Center" Text="{Binding Label}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </zanzarah:ZanzarahComboBox.ItemTemplate>
+                    </zanzarah:ZanzarahComboBox>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <zanzarah:ZanzarahButton Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" Content="{Binding Triumph_Label}" Command="{Binding PlayVoiceCommand}" CommandParameter="0"/>
+                        <zanzarah:ZanzarahButton Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Margin="5" Content="{Binding Pain_Label}" Command="{Binding PlayVoiceCommand}" CommandParameter="1"/>
+                        <zanzarah:ZanzarahButton Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Margin="5" Content="{Binding CriticalHit1_Label}" Command="{Binding PlayVoiceCommand}" CommandParameter="2"/>
+                        <zanzarah:ZanzarahButton Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="2" Margin="5" Content="{Binding CriticalHit2_Label}" Command="{Binding PlayVoiceCommand}" CommandParameter="3"/>
+                        <zanzarah:ZanzarahButton Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="2" Margin="5" Content="{Binding Attack_Label}" Command="{Binding PlayVoiceCommand}" CommandParameter="4"/>
+                    </Grid>
+
+                    <Border Height="35"/>
+                    <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Text="{Binding Element_Label}"/>
+                    <zanzarah:ZanzarahComboBox Grid.Row="0" SelectedValue="{Binding Selected.Element.Element.Number}" Margin="5"
+                                               ItemsSource="{Binding LevelOfMagicList}" SelectedValuePath="Element.Number">
+                        <zanzarah:ZanzarahComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" Margin="3">
+                                    <local:SingleLevelOfMagic DataContext="{Binding}" Margin="2,0,14,0"/>
+                                    <zanzarah:ZanzarahTextBlock Text="{Binding Element.Text}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </zanzarah:ZanzarahComboBox.ItemTemplate>
+                    </zanzarah:ZanzarahComboBox>
+                </StackPanel>
+                <StackPanel Grid.Row="4">
+                    <Border Height="35"/>
+                    <zanzarah:ZanzarahTextBlock Style="{StaticResource zanLabelStyle}" Text="{Binding LevelOfMagic_Label}"/>
+                    <ItemsControl ItemsSource="{Binding Selected.Magics}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <local:MagicView/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Grid>
+        </zanzarah:ZanzarahScrollViewer>
+    </Grid>
+</UserControl>

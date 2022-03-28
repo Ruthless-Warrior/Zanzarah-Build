@@ -1,0 +1,288 @@
+﻿<Window x:Class="ZanzarahBuild.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ZanzarahBuild"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+        xmlns:behaviors="clr-namespace:ZanzarahBuild.Behaviors"
+        xmlns:converters="clr-namespace:ZanzarahBuild.Converters"
+        xmlns:custom="clr-namespace:ZanzarahBuild.Views.CustomControls"
+        xmlns:models="clr-namespace:ZanzarahBuild.Models"
+        xmlns:viewmodels="clr-namespace:ZanzarahBuild.ViewModels"
+        xmlns:views="clr-namespace:ZanzarahBuild.Views"
+        xmlns:zanzarah="clr-namespace:ZanzarahBuild.Views.CustomControls.Zanzarah"
+        mc:Ignorable="d"
+        Title="{Binding Title}"
+        Icon="{Binding Icon}"
+        Width="{Binding Width, Mode=TwoWay}"
+        Height="{Binding Height, Mode=TwoWay}"
+        WindowState="{Binding WindowState}"
+        Name="window" MinHeight="60" MinWidth="200"
+        UseLayoutRounding="True">
+    <Window.Style>
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="WindowChrome.WindowChrome">
+                <Setter.Value>
+                    <WindowChrome GlassFrameThickness="1" 
+                                  ResizeBorderThickness="4"
+                                  CaptionHeight="0"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Style>
+    <Window.DataContext>
+        <viewmodels:MainWindowViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/generic.xaml"></ResourceDictionary>
+                <ResourceDictionary Source="ResourceDictionaries/WindowElementsResourceDictionary.xaml"/>
+                <ResourceDictionary Source="ResourceDictionaries/WindowBackgroundResourceDictionary.xaml"/>
+                <ResourceDictionary Source="ResourceDictionaries/TextResourceDictionary.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Background="{StaticResource Window.Background.Brush}">
+        <Grid.Resources>
+            <Style TargetType="{x:Type FrameworkElement}">
+                <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            </Style>
+        </Grid.Resources>
+        <DockPanel Margin="6">
+            <Grid DockPanel.Dock="Top">
+                <Grid.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black" Offset="1"/>
+                        <GradientStop Color="#FF0D0B15"/>
+                    </LinearGradientBrush>
+                </Grid.Background>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid Width="38" Height="38" ClipToBounds="True" VerticalAlignment="Center" Margin="5,0">
+                    <Image Source="{Binding Icon}" Height="38" Width="3440" Visibility="Visible"/>
+                </Grid>
+                <zanzarah:ZanzarahTextBlock Grid.Column="1" VerticalAlignment="Center" Margin="9,0,0,0" Text="{Binding Title}" FontSize="18"/>
+                <custom:CustomButton Background="Transparent" Grid.ColumnSpan="3" Margin="-6,-6,-6,0" Tag="Перемещение">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="MouseDoubleClick">
+                            <i:InvokeCommandAction  Command="{Binding MaximizeWindowCommand}"
+                                                    CommandParameter="{Binding ElementName=window}" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <custom:CustomButton.Style>
+                        <Style TargetType="{x:Type Button}">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Grid Background="Transparent">
+                                            <i:Interaction.Behaviors>
+                                                <behaviors:DragWindowBehavior TargetWindow="{Binding ElementName=window}"/>
+                                            </i:Interaction.Behaviors>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </custom:CustomButton.Style>
+                </custom:CustomButton>
+                <Border BorderBrush="{StaticResource Window.Border.Brush2}" Grid.Column="2" Margin="8,0,8,4" BorderThickness="2,0,2,2" Padding="0,1" VerticalAlignment="Top" Background="Transparent">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <custom:CustomButton Style="{StaticResource MinimizeButtonStyle}" Margin="1,0"
+                                             Command="{Binding MinimizeWindowCommand}"
+                                             CommandParameter="{Binding ElementName=window}"/>
+                        <custom:CustomButton Style="{StaticResource MaximizeButtonStyle}" Margin="1,0"
+                                             Command="{Binding MaximizeWindowCommand}"
+                                             CommandParameter="{Binding ElementName=window}"/>
+                        <custom:CustomButton Style="{StaticResource CloseButtonStyle}" Margin="1,0"
+                                             Command="{Binding CloseWindowCommand}"
+                                             CommandParameter="{Binding ElementName=window}"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+            <DockPanel MinWidth="780" MinHeight="520">
+                <Border DockPanel.Dock="Top"
+                        BorderBrush="{StaticResource Window.AdditionalBorder.Brush}"
+                        BorderThickness="0,1" Background="#0C2328">
+                    <Border.Resources>
+                        <converters:_TestConverter x:Key="testConverter"/>
+                    </Border.Resources>
+                    <Menu Background="Transparent" Visibility="{Binding Menu_Visibility}">
+                        <Menu.Resources>
+                            <converters:AddRemoveMenuItemVisibilityConverter x:Key="armiVisConverter"/>
+                            <converters:MenuItemSaveFileHeaderConverter x:Key="misfHeaderConverter"/>
+                        </Menu.Resources>
+                        <zanzarah:ZanzarahMenuItem Header="{Binding DataFiles_Label}">
+                            <zanzarah:ZanzarahMenuItem Header="{Binding Wizforms_Label}" Command="{Binding GotoCommand}" CommandParameter="WizformsData"/>
+                            <zanzarah:ZanzarahMenuItem Header="{Binding Texts_Label}" Command="{Binding GotoCommand}" CommandParameter="TextsData"/>
+                            <zanzarah:ZanzarahMenuItem Header="{Binding Spells_Label}" Command="{Binding GotoCommand}" CommandParameter="SpellsData"/>
+                            <zanzarah:ZanzarahMenuItem Header="{Binding Items_Label}" Command="{Binding GotoCommand}" CommandParameter="ItemsData"/>
+                            <zanzarah:ZanzarahMenuItem Header="{Binding Scripts_Label}" Command="{Binding GotoCommand}" CommandParameter="ScriptsData"/>
+                            <zanzarah:ZanzarahMenuItem Header="{Binding Dialogues_Label}" Command="{Binding GotoCommand}" CommandParameter="DialoguesData"/>
+                            <Separator Height="2"/>
+                            <zanzarah:ZanzarahMenuItem Header="{Binding Load_Label}" Command="{Binding LoadDataCommand}" CommandParameter="False"/>
+                            <zanzarah:ZanzarahMenuItem Header="{Binding Reset_Label}" Command="{Binding LoadDataCommand}" CommandParameter="True"/>
+                            <zanzarah:ZanzarahMenuItem Header="{Binding Save_Label}" Command="{Binding SaveDataCommand}" CommandParameter="False"/>
+                            <zanzarah:ZanzarahMenuItem Header="{Binding SaveAll_Label}" Command="{Binding SaveDataCommand}" CommandParameter="True"/>
+                        </zanzarah:ZanzarahMenuItem>
+                        <zanzarah:ZanzarahMenuItem Header="{Binding SaveFiles_Label}">
+                            <zanzarah:ZanzarahMenuItem Header="{Binding Items_Label}" Command="{Binding GotoCommand}" CommandParameter="InventoryItems"/>
+                            <zanzarah:ZanzarahMenuItem Header="{Binding Spells_Label}" Command="{Binding GotoCommand}" CommandParameter="InventorySpells"/>
+                            <zanzarah:ZanzarahMenuItem Header="{Binding Wizforms_Label}" Command="{Binding GotoCommand}" CommandParameter="InventoryWizforms"/>
+                            <Separator Height="2"/>
+                            <zanzarah:ZanzarahMenuItem Header="{Binding Open_Label}">
+                                <zanzarah:ZanzarahMenuItem Header="&lt;Save&gt;">
+                                    <zanzarah:ZanzarahMenuItem Header="{Binding Converter={StaticResource misfHeaderConverter}, ConverterParameter=S0}"
+                                                               Command="{Binding LoadFileSaveCommand}" CommandParameter="S0"/>
+                                    <zanzarah:ZanzarahMenuItem Header="{Binding Converter={StaticResource misfHeaderConverter}, ConverterParameter=S1}"
+                                                               Command="{Binding LoadFileSaveCommand}" CommandParameter="S1"/>
+                                    <zanzarah:ZanzarahMenuItem Header="{Binding Converter={StaticResource misfHeaderConverter}, ConverterParameter=S2}"
+                                                               Command="{Binding LoadFileSaveCommand}" CommandParameter="S2"/>
+                                    <zanzarah:ZanzarahMenuItem Header="{Binding Converter={StaticResource misfHeaderConverter}, ConverterParameter=S3}"
+                                                               Command="{Binding LoadFileSaveCommand}" CommandParameter="S3"/>
+                                    <zanzarah:ZanzarahMenuItem Header="{Binding Converter={StaticResource misfHeaderConverter}, ConverterParameter=S4}"
+                                                               Command="{Binding LoadFileSaveCommand}" CommandParameter="S4"/>
+                                    <zanzarah:ZanzarahMenuItem Header="{Binding Converter={StaticResource misfHeaderConverter}, ConverterParameter=S5}"
+                                                               Command="{Binding LoadFileSaveCommand}" CommandParameter="S5"/>
+                                </zanzarah:ZanzarahMenuItem>
+                                <zanzarah:ZanzarahMenuItem Header="&lt;VirtualStore&gt;">
+                                    <zanzarah:ZanzarahMenuItem Header="{Binding Converter={StaticResource misfHeaderConverter}, ConverterParameter=V0}"
+                                                               Command="{Binding LoadFileSaveCommand}" CommandParameter="V0"/>
+                                    <zanzarah:ZanzarahMenuItem Header="{Binding Converter={StaticResource misfHeaderConverter}, ConverterParameter=V1}"
+                                                               Command="{Binding LoadFileSaveCommand}" CommandParameter="V1"/>
+                                    <zanzarah:ZanzarahMenuItem Header="{Binding Converter={StaticResource misfHeaderConverter}, ConverterParameter=V2}"
+                                                               Command="{Binding LoadFileSaveCommand}" CommandParameter="V2"/>
+                                    <zanzarah:ZanzarahMenuItem Header="{Binding Converter={StaticResource misfHeaderConverter}, ConverterParameter=V3}"
+                                                               Command="{Binding LoadFileSaveCommand}" CommandParameter="V3"/>
+                                    <zanzarah:ZanzarahMenuItem Header="{Binding Converter={StaticResource misfHeaderConverter}, ConverterParameter=V4}"
+                                                               Command="{Binding LoadFileSaveCommand}" CommandParameter="V4"/>
+                                    <zanzarah:ZanzarahMenuItem Header="{Binding Converter={StaticResource misfHeaderConverter}, ConverterParameter=V5}"
+                                                               Command="{Binding LoadFileSaveCommand}" CommandParameter="V5"/>
+                                </zanzarah:ZanzarahMenuItem>
+                                <zanzarah:ZanzarahMenuItem Header="{Binding Choose_Label}" Command="{Binding LoadFileSaveCommand}" CommandParameter="C0"/>
+                            </zanzarah:ZanzarahMenuItem>
+                            <zanzarah:ZanzarahMenuItem Header="{Binding Reset_Label}" Command="{Binding LoadFileSaveCommand}" CommandParameter="R0"/>
+                            <zanzarah:ZanzarahMenuItem Header="{Binding Save_Label}" Command="{Binding SaveFileSaveCommand}" CommandParameter="False"/>
+                            <zanzarah:ZanzarahMenuItem Header="{Binding SaveAs_Label}" Command="{Binding SaveFileSaveCommand}" CommandParameter="True"/>
+                        </zanzarah:ZanzarahMenuItem>
+                        <zanzarah:ZanzarahMenuItem
+                            Header="{Binding Add_Label}" Command="{Binding GotoCommand}" CommandParameter="AddSpellsToInventory"
+                            Visibility="{Binding Visibility, ElementName=gridSaveFileSpells_Visibility, Mode=OneWay, Converter={StaticResource armiVisConverter}}"/>
+                        <zanzarah:ZanzarahMenuItem
+                            Header="{Binding Add_Label}" Command="{Binding GotoCommand}" CommandParameter="AddWizformsToInventory"
+                            Visibility="{Binding Visibility, ElementName=gridSaveFileWizforms_Visibility, Mode=OneWay, Converter={StaticResource armiVisConverter}}"/>
+                        <zanzarah:ZanzarahMenuItem
+                            Header="{Binding Remove_Label}" Command="{Binding RemoveSpellsCommand}"
+                            Visibility="{Binding Visibility, ElementName=gridSaveFileSpells_Visibility, Mode=OneWay, Converter={StaticResource armiVisConverter}}"/>
+                        <zanzarah:ZanzarahMenuItem
+                            Header="{Binding Remove_Label}" Command="{Binding RemoveWizformsCommand}"
+                            Visibility="{Binding Visibility, ElementName=gridSaveFileWizforms_Visibility, Mode=OneWay, Converter={StaticResource armiVisConverter}}"/>
+                    </Menu>
+                </Border>
+                <Border DockPanel.Dock="Bottom" Background="#0C2328"
+                        BorderBrush="{StaticResource Window.Border.Brush2}"
+                        BorderThickness="0,2,0,0" Height="30">
+                    <DockPanel>
+                        <zanzarah:ZanzarahTextBlock Text="{Binding ProgressText}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="12,0" DockPanel.Dock="Left"/>
+                        <zanzarah:ZanzarahTextBlock Text="{Binding Version}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="12,0" DockPanel.Dock="Right"/>
+                        <Grid/>
+                    </DockPanel>
+                </Border>
+                <Grid>
+                    <ContentControl ContentTemplate="{StaticResource Window.InnerShadow}"/>
+                    <Grid Margin="40">
+                        <!-- ================================================== -->
+                        <Grid
+                            x:Name="gridWizformFile_Visibility"
+                            Visibility="{Binding WizformFile_Visibility, Mode=OneWay}"/>
+                        <Grid
+                            x:Name="gridTextFile_Visibility"
+                            Visibility="{Binding TextFile_Visibility, Mode=OneWay}"/>
+                        <Grid
+                            x:Name="gridSpellFile_Visibility"
+                            Visibility="{Binding SpellFile_Visibility, Mode=OneWay}"/>
+                        <Grid
+                            x:Name="gridItemFile_Visibility"
+                            Visibility="{Binding ItemFile_Visibility, Mode=OneWay}"/>
+                        <Grid
+                            x:Name="gridScriptFile_Visibility"
+                            Visibility="{Binding ScriptFile_Visibility, Mode=OneWay}"/>
+                        <Grid
+                            x:Name="gridDialogueFile_Visibility"
+                            Visibility="{Binding DialogueFile_Visibility, Mode=OneWay}"/>
+                        <Grid
+                            x:Name="gridSaveFileItems_Visibility"
+                            Visibility="{Binding SaveFileItems_Visibility, Mode=OneWay}"/>
+                        <Grid
+                            x:Name="gridSaveFileSpells_Visibility"
+                            Visibility="{Binding SaveFileSpells_Visibility, Mode=OneWay}"/>
+                        <Grid
+                            x:Name="gridSaveFileWizforms_Visibility"
+                            Visibility="{Binding SaveFileWizforms_Visibility, Mode=OneWay}"/>
+                        <Grid
+                            x:Name="gridAddSpells_Visibility"
+                            Visibility="{Binding AddSpells_Visibility, Mode=OneWay}"/>
+                        <Grid
+                            x:Name="gridAddWizforms_Visibility"
+                            Visibility="{Binding AddWizforms_Visibility, Mode=OneWay}"/>
+                        <!-- ================================================== -->
+                        <views:WizformFileView
+                            Visibility="{Binding Visibility, ElementName=gridWizformFile_Visibility, Mode=OneWay}"
+                            DataContext="{Binding WizformFile_ViewModel}"/>
+                        <views:TextFileView
+                            Visibility="{Binding Visibility, ElementName=gridTextFile_Visibility, Mode=OneWay}"
+                            DataContext="{Binding TextFile_ViewModel}"/>
+                        <views:SpellFileView
+                            Visibility="{Binding Visibility, ElementName=gridSpellFile_Visibility, Mode=OneWay}"
+                            DataContext="{Binding SpellFile_ViewModel}"/>
+                        <views:ItemFileView
+                            Visibility="{Binding Visibility, ElementName=gridItemFile_Visibility, Mode=OneWay}"
+                            DataContext="{Binding ItemFile_ViewModel}"/>
+                        <views:ScriptFileView
+                            Visibility="{Binding Visibility, ElementName=gridScriptFile_Visibility, Mode=OneWay}"
+                            DataContext="{Binding ScriptFile_ViewModel}"/>
+                        <views:DialogueFileView
+                            Visibility="{Binding Visibility, ElementName=gridDialogueFile_Visibility, Mode=OneWay}"
+                            DataContext="{Binding DialogueFile_ViewModel}"/>
+                        <views:SaveFileItemsView
+                            Visibility="{Binding Visibility, ElementName=gridSaveFileItems_Visibility, Mode=OneWay}"
+                            DataContext="{Binding SaveFileItems_ViewModel}"/>
+                        <views:SaveFileSpellsView
+                            Visibility="{Binding Visibility, ElementName=gridSaveFileSpells_Visibility, Mode=OneWay}"
+                            DataContext="{Binding SaveFileSpells_ViewModel}"/>
+                        <views:SaveFileWizformsView
+                            Visibility="{Binding Visibility, ElementName=gridSaveFileWizforms_Visibility, Mode=OneWay}"
+                            DataContext="{Binding SaveFileWizforms_ViewModel}"/>
+                        <views:AddSpellsView
+                            Visibility="{Binding Visibility, ElementName=gridAddSpells_Visibility, Mode=OneWay}"
+                            DataContext="{Binding AddSpells_ViewModel}"/>
+                        <views:AddWizformsView
+                            Visibility="{Binding Visibility, ElementName=gridAddWizforms_Visibility, Mode=OneWay}"
+                            DataContext="{Binding AddWizforms_ViewModel}"/>
+                        <!-- ================================================== -->
+                        <Grid x:Name="TESTGRID" Visibility="Collapsed">
+                            <views:TestView DataContext="{Binding TestViewModel}"/>
+                        </Grid>
+                    </Grid>
+                    <ContentControl Visibility="Collapsed" Content="{Binding}"/>
+                </Grid>
+            </DockPanel>
+        </DockPanel>
+        <ContentControl ContentTemplate="{StaticResource Window.Border}"/>
+
+        <Viewbox Width="1" Height="1" Visibility="Hidden">
+        </Viewbox>
+        <i:Interaction.Triggers>
+            <i:EventTrigger EventName="Loaded">
+                <i:InvokeCommandAction Command="{Binding WindowLoadedCommand}"/>
+            </i:EventTrigger>
+            <i:EventTrigger EventName="Closing">
+                <i:InvokeCommandAction Command="{Binding WindowClosingCommand}"/>
+            </i:EventTrigger>
+        </i:Interaction.Triggers>
+    </Grid>
+</Window>
